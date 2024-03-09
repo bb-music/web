@@ -1,0 +1,15 @@
+.github
+node_modules/
+.pnpm-lock.yaml
+.pnpm-workspace.yaml
+.npmrc
+.prettierignore
+.prettierrc.js
+.git
+.vscode
+.DS_Store
+.npm-debug.log
+
+client/
+app/node_modules
+app/p
