@@ -4,9 +4,8 @@ import {
   Input,
   SettingItem,
   userMusicOrderOrigin,
-  UserMusicOrderOriginType,
   type UserMusicOrderApi,
-  type UserMusicOrderOrigin,
+  UserMusicOrderOrigin,
 } from '@bb-music/app';
 
 import { useEffect, useState } from 'react';
@@ -14,7 +13,7 @@ import { settingCache } from './setting';
 
 const { GithubUserMusicOrderAction } = userMusicOrderOrigin;
 
-const NAME = UserMusicOrderOriginType.Github;
+const NAME = UserMusicOrderOrigin.UserMusicOrderOriginType.Github;
 const CNAME = 'Github 歌单';
 
 // Github 源
