@@ -5,10 +5,10 @@
   "description": "哔哔音乐 web 端 与 核心 UI 组件",
   "main": "app/index.ts",
   "scripts": {
-    "lint": "eslint {app,client}/**/*.{ts,tsx} --fix",
-    "start:web": "npm run start --prefix ./client/web",
+    "lint": "eslint {app,client,packages}/**/*.{ts,tsx} --fix",
+    "dev:web": "npm run dev --prefix ./client/web",
     "build:web": "npm run build --prefix ./client/web",
-    "start:next": "npm run dev --prefix ./client/nextjs",
+    "dev:next": "npm run dev --prefix ./client/nextjs",
     "build:next": "npm run build --prefix ./client/nextjs"
   },
   "keywords": [],

@@ -124,6 +124,9 @@ importers:
       '@bb-music/app':
         specifier: workspace:*
         version: link:../../app
+      '@bb-music/sdk-bili':
+        specifier: workspace:*
+        version: link:../../packages/bili
       '@bb-music/web':
         specifier: workspace:*
         version: link:../web
@@ -177,6 +180,31 @@ importers:
       vconsole:
         specifier: ^3.15.1
         version: 3.15.1
+
+  packages/bili:
+    dependencies:
+      md5:
+        specifier: ^2.3.0
+        version: 2.3.0
+    devDependencies:
+      '@bb-music/bb-types':
+        specifier: workspace:*
+        version: link:../types
+      '@types/md5':
+        specifier: ^2.3.5
+        version: 2.3.5
+      '@types/node':
+        specifier: ^20.11.20
+        version: 20.11.20
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
+
+  packages/types:
+    devDependencies:
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
 
 packages:
 
