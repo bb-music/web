@@ -1,12 +1,11 @@
 import styles from '../../index.module.scss';
-import { cls } from '../../../../utils';
+import { cls, seconds2mmss } from '../../../../utils';
 import { useState } from 'react';
 import { Image, Button } from '../../../../components';
 import { usePlayerStore } from '../../../player';
 import { musicCollect, downloadMusic } from '../../..';
-import { seconds2mmss } from '../../../../utils';
 import { api } from '../../../../api';
-import { SearchItemProps, useSearchItem } from './hooks';
+import { type SearchItemProps, useSearchItem } from './hooks';
 
 export function SearchItem({ data, gotoMusicOrderDetail }: SearchItemProps) {
   const player = usePlayerStore();
@@ -22,7 +21,6 @@ export function SearchItem({ data, gotoMusicOrderDetail }: SearchItemProps) {
   });
 
   const name = data.name;
-  console.log('data: ', data);
   return (
     <div className={styles.searchItem} onClick={getDetailHandler} title={name}>
       <Image
@@ -43,45 +41,47 @@ export function SearchItem({ data, gotoMusicOrderDetail }: SearchItemProps) {
       </div>
 
       {loading && <div className={styles.loading}>加载中...</div>}
-      <div
-        className={cls(styles.operate, show ? styles.show : '')}
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-      >
-        <Button
-          type="primary"
-          onClick={() => {
-            player.play(music!);
+      {music && (
+        <div
+          className={cls(styles.operate, show && styles.show)}
+          onClick={(e) => {
+            e.stopPropagation();
           }}
         >
-          立即播放
-        </Button>
-        <Button
-          type="primary"
-          onClick={() => {
-            musicCollect(music!);
-          }}
-        >
-          加入歌单
-        </Button>
-        <Button
-          type="primary"
-          onClick={() => {
-            player.addPlayerList(music!);
-          }}
-        >
-          添加至播放列表
-        </Button>
-        <Button
-          type="primary"
-          onClick={() => {
-            downloadMusic(music!);
-          }}
-        >
-          下载
-        </Button>
-      </div>
+          <Button
+            type="primary"
+            onClick={() => {
+              player.play(music);
+            }}
+          >
+            立即播放
+          </Button>
+          <Button
+            type="primary"
+            onClick={() => {
+              musicCollect(music);
+            }}
+          >
+            加入歌单
+          </Button>
+          <Button
+            type="primary"
+            onClick={() => {
+              player.addPlayerList(music);
+            }}
+          >
+            添加至播放列表
+          </Button>
+          <Button
+            type="primary"
+            onClick={() => {
+              downloadMusic(music);
+            }}
+          >
+            下载
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

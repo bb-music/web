@@ -13,7 +13,7 @@ export default function Root() {
   const init = async () => {
     setInitLoading(true);
     try {
-      await Promise.all(apiInstance.musicServices.map((s) => s.hooks?.init?.()));
+      await Promise.all(apiInstance.musicServices.map(async (s) => await s.hooks?.init?.()));
     } catch (error) {
       console.log('error: ', error);
     }

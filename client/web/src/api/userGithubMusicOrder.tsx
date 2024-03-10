@@ -3,10 +3,10 @@ import {
   message,
   Input,
   SettingItem,
-  UserMusicOrderApi,
   userMusicOrderOrigin,
-  UserMusicOrderOrigin,
   UserMusicOrderOriginType,
+  type UserMusicOrderApi,
+  type UserMusicOrderOrigin,
 } from '@bb-music/app';
 
 import { useEffect, useState } from 'react';
@@ -53,10 +53,11 @@ export class UserGithubMusicOrderInstance implements GithubMusicOrder {
       };
       setData(newValue);
     };
-    const savaHandler = async () => {
-      await updateUserMusicOrderOriginConfig(NAME, data);
-      onChange?.(data);
-      message.success('已保存');
+    const savaHandler = () => {
+      updateUserMusicOrderOriginConfig(NAME, data).then(() => {
+        onChange?.(data);
+        message.success('已保存');
+      });
     };
     return (
       <>
@@ -80,17 +81,17 @@ export class UserGithubMusicOrderInstance implements GithubMusicOrder {
       </>
     );
   };
+
   action = new GithubUserMusicOrderAction(async () => {
     const setting = await settingCache.get();
-    return {
-      ...setting?.userMusicOrderOrigin.find((n) => n.name === NAME)?.config,
-    } as UserMusicOrderOrigin.GithubConfig;
+    const config = setting?.userMusicOrderOrigin.find((n) => n.name === NAME)?.config;
+    return config as UserMusicOrderOrigin.GithubConfig;
   });
 }
 
 async function updateUserMusicOrderOriginConfig(originName: string, data: any) {
   const setting = await settingCache.get();
-  let list = setting?.userMusicOrderOrigin || [];
+  let list = setting?.userMusicOrderOrigin ?? [];
   if (list.find((n) => n.name === originName)) {
     list = list.map((l) => {
       if (l.name === originName) {

@@ -1,7 +1,6 @@
 import { Remind, SettingTwo } from '@icon-park/react';
 import styles from '../index.module.scss';
 import { PageView, useContainerStore } from '../../store';
-import { cls } from '../../../../utils';
 
 export interface HeaderProps {
   operateRender?: React.ReactNode;

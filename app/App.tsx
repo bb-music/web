@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import styles from './theme/dark.module.scss';
-import { GlobalStoreState, useGlobalStore } from './store/global';
-import { Api, registerApiInstance } from './api';
+import { type GlobalStoreState, useGlobalStore } from './store/global';
+import { type Api, registerApiInstance } from './api';
 
 export interface BBMusicAppProps extends GlobalStoreState {
   /** api */
@@ -23,9 +23,13 @@ export function BBMusicApp({
   }, [theme]);
 
   useEffect(() => {
-    Promise.all(apiInstance.musicServices.map((s) => s.hooks?.init?.())).then(() => {
-      console.log('配置初始化完成');
-    });
+    Promise.all(apiInstance.musicServices.map(async (s) => await s.hooks?.init?.()))
+      .then(() => {
+        console.log('配置初始化完成');
+      })
+      .catch((e) => {
+        console.log('配置初始化失败');
+      });
   }, []);
 
   if (!apiInstance) return null;

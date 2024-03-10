@@ -2,20 +2,19 @@
 import { cls } from '../../../utils';
 import styles from './index.module.scss';
 import { UIPrefix } from '../../../consts';
-import { BaseElementProps } from '../../../interface';
+import { type BaseElementProps } from '../../../interface';
 import { useGlobalStore } from '../../../store/global';
 import { PageView, useContainerStore } from '../store';
 import { useEffect, useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
-import { SettingForMobile, useSettingStore } from '../../setting';
+import { SettingForMobile, useSettingStore , type SettingProps } from '../../setting';
 import { MessageRoot, setMobileEnv } from '../../../components';
 import { MusicOrderFormMobile, MusicOrderModal } from '../../musicOrderList';
 import { MusicFormModal } from '../../music';
 import { PlayerForMobile } from '../../player';
-import { OpenMusicOrderProps, OpenMusicOrderViewForMobile } from '../../openMusicOrder';
-import { MusicOrderDetailForMobile, MusicOrderDetailProps } from '../../musicOrderDetail';
-import { SearchForMobile, SearchProps } from '../../search';
-import { SettingProps } from '../../setting';
+import { type OpenMusicOrderProps, OpenMusicOrderViewForMobile } from '../../openMusicOrder';
+import { MusicOrderDetailForMobile, type MusicOrderDetailProps } from '../../musicOrderDetail';
+import { SearchForMobile, type SearchProps } from '../../search';
 import { Header } from './components/Header';
 
 type PageViewProps = OpenMusicOrderProps | MusicOrderDetailProps | SearchProps | SettingProps;

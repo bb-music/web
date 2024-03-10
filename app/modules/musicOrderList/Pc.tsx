@@ -1,5 +1,5 @@
 import { useShallow } from 'zustand/react/shallow';
-import { MusicOrderFormModal, MusicOrderList, MusicOrderListProps, SubTitle } from './common';
+import { MusicOrderFormModal, MusicOrderList, type MusicOrderListProps, SubTitle } from './common';
 import { useMusicOrderFormModalStore, useUserMusicOrderStore } from './store';
 import { useEffect } from 'react';
 import { Plus } from '@icon-park/react';

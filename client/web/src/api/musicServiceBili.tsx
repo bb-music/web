@@ -1,8 +1,8 @@
 import {
-  MusicServiceApi,
-  MusicServiceApiAction,
-  MusicServiceApiHooks,
-  SearchType,
+  type MusicServiceApi,
+  type MusicServiceApiAction,
+  type MusicServiceApiHooks,
+  type SearchType,
   SettingItem,
   Input,
   Button,
@@ -12,7 +12,7 @@ import {
 import { html2text, proxyMusicService, transformImgUrl } from '../utils';
 import { settingCache } from './setting';
 import { useEffect, useState } from 'react';
-import { app_bili, bb_type } from '../../wailsjs/go/models';
+import { type app_bili, type bb_type } from '../../wailsjs/go/models';
 
 class BiliMusicServiceConfigValue {
   enabled = true;
@@ -49,6 +49,7 @@ class BiliAction implements MusicServiceApiAction {
       })),
     };
   };
+
   searchItemDetail: MusicServiceApiAction['searchItemDetail'] = async (item) => {
     const info = await proxyMusicService<bb_type.SearchItem>({
       proxy: {
@@ -60,9 +61,11 @@ class BiliAction implements MusicServiceApiAction {
       type: info.type as SearchType,
     };
   };
+
   getMusicPlayerUrl: MusicServiceApiAction['getMusicPlayerUrl'] = async (music) => {
     return `/api/music/file/${NAME}/${music.id}`;
   };
+
   download: MusicServiceApiAction['download'] = async (music) => {
     const a = document.createElement('a');
     a.href = `/api/music/file/${NAME}/${music.id}`;
@@ -96,7 +99,7 @@ export class BiliMusicServiceInstance implements BiliMusicServiceApi {
       settingCache.get().then((res) => {
         if (Array.isArray(res?.musicServices)) {
           const c = res.musicServices?.find((m) => m.name === NAME)?.config;
-          setData(c);
+          setData(c as BiliMusicServiceConfigValue);
         }
       });
     };
@@ -114,10 +117,11 @@ export class BiliMusicServiceInstance implements BiliMusicServiceApi {
         },
       };
     };
-    const saveHandler = async () => {
-      await updateMusicServicesSetting(NAME, data);
-      onChange?.(data);
-      message.success('已保存');
+    const saveHandler = () => {
+      updateMusicServicesSetting(NAME, data).then(() => {
+        onChange?.(data);
+        message.success('已保存');
+      });
     };
     return (
       <>
@@ -157,6 +161,7 @@ export class BiliMusicServiceInstance implements BiliMusicServiceApi {
       </>
     );
   };
+
   action = new BiliAction();
   hooks = new BiliHooks();
 }
@@ -164,7 +169,7 @@ export class BiliMusicServiceInstance implements BiliMusicServiceApi {
 // 更新音乐服务设置
 async function updateMusicServicesSetting(serviceName: string, data: any) {
   const setting = await settingCache.get();
-  let list = setting?.musicServices || [];
+  let list = setting?.musicServices ?? [];
   if (list.find((n) => n.name === serviceName)) {
     list = list.map((l) => {
       if (l.name === serviceName) {

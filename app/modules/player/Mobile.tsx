@@ -2,7 +2,7 @@ import styles from './index.module.scss';
 import { MusicList } from '@icon-park/react';
 import { usePlayerStore } from './store';
 import { cls } from '../../utils';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { usePlayer } from './hooks';
 import { PlayerCurrentInfo } from './components/PlayerCurrentInfo';
 import { NextIconButton, PlayIconButton } from './components/PlayerOperate';

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { useShallow } from 'zustand/react/shallow';
 import styles from './index.module.scss';

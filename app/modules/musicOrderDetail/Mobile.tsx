@@ -1,19 +1,18 @@
 /**
  * 歌单详情 移动端
  */
-import { showActionSheet, ContextMenu, Button, Input } from '../../components';
-import { Download, MoreOne } from '@icon-park/react';
-import { Table } from '../../components';
+import { showActionSheet, Button, Input } from '../../components';
+import { MoreOne } from '@icon-park/react';
 import { usePlayerStore } from '../player';
 import { musicCollect } from '../musicOrderList';
-import { deleteMusic, downloadMusic } from '../music';
-import { updateMusicInfo } from '../music';
+import { deleteMusic, downloadMusic, updateMusicInfo } from '../music';
+
 import { cls, seconds2mmss } from '../../utils';
-import { MusicOrderDetailProps, useMusicOrderDetail } from '.';
+import { useMusicOrderDetail } from '.';
 import { api } from '../../api';
 import styles from './index.module.scss';
 
-export function MusicOrderDetailForMobile({}: MusicOrderDetailProps) {
+export function MusicOrderDetailForMobile() {
   const player = usePlayerStore();
   const { data, originName, canEditMusic, searchKeyword, setSearchKeyword } = useMusicOrderDetail();
   if (!data) return null;
@@ -21,7 +20,7 @@ export function MusicOrderDetailForMobile({}: MusicOrderDetailProps) {
     <div className={cls(styles.container, styles.MobileContainer)}>
       <div
         className={styles.MusicOrderInfo}
-        style={{ backgroundImage: `url(${api.utils.imgUrlTransform(data.cover!)})` }}
+        style={{ backgroundImage: `url(${api.utils.imgUrlTransform(data.cover || '')})` }}
       >
         <div className={styles.info}>
           <div className={styles.title}>{data?.name}</div>
@@ -157,11 +156,11 @@ export function MusicOrderDetailForMobile({}: MusicOrderDetailProps) {
                         key: '从歌单中删除',
                         onClick: () => {
                           const musicOrderId = data?.id;
-                          if (!musicOrderId) return null;
+                          if (!musicOrderId || !originName) return null;
                           deleteMusic({
                             musicOrderId,
                             music: m,
-                            originName: originName!,
+                            originName,
                           });
                         },
                       },

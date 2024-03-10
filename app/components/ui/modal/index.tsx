@@ -17,7 +17,7 @@ interface ModalProps {
   width?: number | string;
   open?: boolean;
   onClose?: () => void;
-  onOk?: () => Promise<unknown> | void;
+  onOk?: () => Promise<unknown> | undefined;
 }
 
 export function Modal({
@@ -50,9 +50,7 @@ export function Modal({
         </div>
         <div className={styles.body}>{children}</div>
         <div className={styles.footer}>
-          {footer ? (
-            footer
-          ) : (
+          {footer || (
             <>
               <Button
                 type="primary"

@@ -2,23 +2,22 @@
 import { cls } from '../../../utils';
 import styles from './index.module.scss';
 import { UIPrefix } from '../../../consts';
-import { BaseElementProps } from '../../../interface';
-import { Header, HeaderProps } from './components/Header';
+import { type BaseElementProps } from '../../../interface';
+import { Header, type HeaderProps } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { useGlobalStore } from '../../../store/global';
 import { PageView, useContainerStore } from '../store';
 import { useEffect, useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
-import { useSettingStore } from '../../setting';
+import { useSettingStore , Setting, type SettingProps } from '../../setting';
 import { Player } from '../../player';
 import { MessageRoot } from '../../../components/ui/message';
 import { MusicOrderModal } from '../../musicOrderList';
 import { MusicFormModal } from '../../music';
 
-import { OpenMusicOrderView, OpenMusicOrderProps } from '../../openMusicOrder';
-import { MusicOrderDetail, MusicOrderDetailProps } from '../../musicOrderDetail';
-import { Search, SearchProps } from '../../search';
-import { Setting, SettingProps } from '../../setting';
+import { OpenMusicOrderView, type OpenMusicOrderProps } from '../../openMusicOrder';
+import { MusicOrderDetail, type MusicOrderDetailProps } from '../../musicOrderDetail';
+import { Search, type SearchProps } from '../../search';
 
 type PageViewProps = OpenMusicOrderProps | MusicOrderDetailProps | SearchProps | SettingProps;
 

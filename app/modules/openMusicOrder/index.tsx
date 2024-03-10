@@ -6,7 +6,7 @@ import { useSettingStore } from '../setting';
 import { useEffect } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { useOpenMusicOrderStore } from './store';
-import { MusicOrderDetailProps } from '../musicOrderDetail';
+import { type MusicOrderDetailProps } from '../musicOrderDetail';
 import { MusicOrderItemCard } from '../musicOrderList';
 
 export * from './store';

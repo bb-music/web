@@ -1,6 +1,6 @@
 /** 切换播放模式 */
 import { usePlayerStore } from '..';
-import { PlayCycle, PlayOnce, ShuffleOne, SortAmountDown, VolumeNotice } from '@icon-park/react';
+import { PlayCycle, PlayOnce, ShuffleOne, SortAmountDown } from '@icon-park/react';
 import { PlayerMode, PlayerModeMap } from '../constants';
 
 export function SwitchPlayMode({ className }: React.HTMLAttributes<HTMLDivElement>) {
@@ -13,7 +13,9 @@ export function SwitchPlayMode({ className }: React.HTMLAttributes<HTMLDivElemen
     className,
     strokeWidth: 3,
     title: PlayerModeMap.get(player.playerMode)?.label,
-    onClick: () => player.togglePlayerMode(),
+    onClick: () => {
+      player.togglePlayerMode();
+    },
   };
 
   return (

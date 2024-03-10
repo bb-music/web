@@ -3,7 +3,7 @@ import { SearchItemForMobile } from './components/SearchItem';
 import { useSearchStore } from './store';
 import styles from './index.module.scss';
 import { useEffect } from 'react';
-import { SearchProps } from './hooks';
+import { type SearchProps } from './hooks';
 
 export function SearchForMobile({ gotoMusicOrderDetail }: SearchProps) {
   const store = useSearchStore();

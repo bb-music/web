@@ -1,16 +1,20 @@
 import styles from '../../index.module.scss';
-import { Image, showActionSheet } from '../../../../components';
+import { Image, message, showActionSheet } from '../../../../components';
 import { usePlayerStore } from '../../../player';
 import { musicCollect, downloadMusic } from '../../..';
 import { cls, seconds2mmss } from '../../../../utils';
 import { api } from '../../../../api';
-import { SearchItemProps, useSearchItem } from './hooks';
+import { type SearchItemProps, useSearchItem } from './hooks';
 
 export function SearchItemForMobile({ data, gotoMusicOrderDetail }: SearchItemProps) {
   const player = usePlayerStore();
   const { getDetailHandler, loading, music } = useSearchItem({
     data,
     onDetailIsMusic: () => {
+      if (!music) {
+        message.error('歌曲不存在');
+        return;
+      }
       showActionSheet({
         cancelText: '取消',
         items: [
@@ -18,28 +22,28 @@ export function SearchItemForMobile({ data, gotoMusicOrderDetail }: SearchItemPr
             label: '立即播放',
             key: 1,
             onClick: () => {
-              player.play(music!);
+              player.play(music);
             },
           },
           {
             label: '加入歌单',
             key: 2,
             onClick: () => {
-              musicCollect(music!);
+              musicCollect(music);
             },
           },
           {
             label: '添加至播放列表',
             key: 3,
             onClick: () => {
-              player.addPlayerList(music!);
+              player.addPlayerList(music);
             },
           },
           {
             label: '下载',
             key: 4,
             onClick: () => {
-              downloadMusic(music!);
+              downloadMusic(music);
             },
           },
         ],

@@ -4,7 +4,7 @@ import styles from '../../index.module.scss';
 import { CloseOne } from '@icon-park/react';
 import { useEffect } from 'react';
 
-export default function SearchForm({ isMobile }: { siMobile?: boolean }) {
+export default function SearchForm() {
   const searchStore = useSearchStore();
   const searchHandler = () => {
     if (!searchStore.params.keyword.trim()) return;

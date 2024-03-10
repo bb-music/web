@@ -2,7 +2,7 @@ import { userMusicOrderStore } from '../musicOrderList';
 import { message } from '../../components/ui/message';
 import { musicFormModalStore } from './store';
 import { getMusicOrder, getMusicService } from '../../utils';
-import { MusicInter } from '../../interface';
+import { type MusicInter } from '../../interface';
 
 export * from './store';
 export * from './FormModal';

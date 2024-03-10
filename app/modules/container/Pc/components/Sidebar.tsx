@@ -1,6 +1,6 @@
 import styles from '../index.module.scss';
 import { MusicOrder } from '../../../musicOrderList';
-import { MusicOrderDetailProps } from 'modules';
+import { type MusicOrderDetailProps } from 'modules';
 
 export function Sidebar({
   gotoMusicOrderDetail,

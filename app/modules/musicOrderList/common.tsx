@@ -1,7 +1,7 @@
 /**
  * 歌单列表
  */
-import { MusicMenu, Plus } from '@icon-park/react';
+import { MusicMenu } from '@icon-park/react';
 import { Modal } from '../../components/ui/modal';
 import { FormItem } from '../../components/ui/form';
 import { Input } from '../../components/ui/input';
@@ -16,9 +16,9 @@ import { usePlayerStore } from '../player';
 import { message } from '../../components/ui/message';
 import styles from './index.module.scss';
 import { Image } from '../../components/ui/image';
-import { MusicOrderDetailProps } from '../musicOrderDetail';
+import { type MusicOrderDetailProps } from '../musicOrderDetail';
 import { cls, getMusicOrder } from '../../utils';
-import { BaseElementProps, MusicInter } from '../../interface';
+import { type MusicInter } from '../../interface';
 
 type MusicOrderItem = MusicInter.MusicOrderItem;
 
@@ -80,15 +80,15 @@ export function MusicOrderList({ list, originName, gotoMusicOrderDetail }: ListP
                 label: '编辑',
                 key: '2',
                 onClick: () => {
-                  modalStore.openHandler(item, (value) => {
+                  modalStore.openHandler(item, async (value) => {
                     const id = value.id;
                     if (id && origin) {
-                      return origin.action.update({ ...value, id }).then((res) => {
+                      await origin.action.update({ ...value, id }).then((res) => {
                         userMusicOrderStore.load();
                       });
                     } else {
                       console.error('id为空');
-                      return Promise.reject('id为空');
+                      await Promise.reject(new Error('id为空'));
                     }
                   });
                 },

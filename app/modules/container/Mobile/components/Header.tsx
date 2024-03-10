@@ -1,6 +1,5 @@
 import styles from '../index.module.scss';
 import { PageView, useContainerStore } from '../../store';
-import { useGlobalStore } from '../../../../store/global';
 
 export interface HeaderProps {
   operateRender?: React.ReactNode;

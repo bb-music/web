@@ -4,7 +4,7 @@ import styles from './index.module.scss';
 import { CloseOne } from '@icon-park/react';
 import { Input, Button } from '../../../../components';
 import { useEffect } from 'react';
-import { BaseElementProps } from '../../../../interface';
+import { type BaseElementProps } from '../../../../interface';
 import { cls } from '../../../../utils';
 
 export function SearchHistory() {

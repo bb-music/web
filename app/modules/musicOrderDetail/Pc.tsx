@@ -1,22 +1,17 @@
 /**
  * 歌单详情 PC 端
  */
-import { Image } from '../../components/ui/image';
-import styles from './index.module.scss';
-import { Button } from '../../components/ui/button';
-import { Input } from '../../components/ui/input';
+import { Image, Button, Input, ContextMenu, Table } from '../../components';
 import { Download, Search } from '@icon-park/react';
-import { Table } from '../../components/ui/table';
 import { usePlayerStore } from '../player';
 import { musicCollect } from '../musicOrderList';
-import { ContextMenu } from '../../components/ui/contextMenu';
-import { deleteMusic, downloadMusic } from '../music';
-import { updateMusicInfo } from '../music';
+import { deleteMusic, downloadMusic, updateMusicInfo } from '../music';
 import { seconds2mmss } from '../../utils';
-import { MusicOrderDetailProps, useMusicOrderDetail } from '.';
+import { useMusicOrderDetail } from '.';
 import { api } from '../../api';
+import styles from './index.module.scss';
 
-export function MusicOrderDetail({}: MusicOrderDetailProps) {
+export function MusicOrderDetail() {
   const player = usePlayerStore();
   const { data, originName, canEditMusic, searchKeyword, setSearchKeyword } = useMusicOrderDetail();
   if (!data) return null;
@@ -171,11 +166,11 @@ export function MusicOrderDetail({}: MusicOrderDetailProps) {
                       key: '从歌单中删除',
                       onClick: () => {
                         const musicOrderId = data?.id;
-                        if (!musicOrderId) return null;
+                        if (!musicOrderId || !originName) return null;
                         deleteMusic({
                           musicOrderId,
                           music: m,
-                          originName: originName!,
+                          originName,
                         });
                       },
                     },

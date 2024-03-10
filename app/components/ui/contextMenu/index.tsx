@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { useGlobalStore } from '../../../store/global';
 import { cls } from '../../../utils';
 import * as RadixContextMenu from '@radix-ui/react-context-menu';
@@ -21,13 +21,13 @@ interface MenuItemDivider {
   hide?: boolean;
 }
 
-type MenuItem = MenuItemLabel | MenuItemDivider;
+type MenuItemProp = MenuItemLabel | MenuItemDivider;
 
 export interface ContextMenuProps extends React.ComponentProps<typeof RadixContextMenu.Trigger> {
   tag?: string;
   className?: string;
   style?: React.CSSProperties;
-  items: MenuItem[];
+  items: MenuItemProp[];
 }
 
 export function ContextMenu({
@@ -60,7 +60,7 @@ export function ContextMenu({
   );
 }
 
-export function MenuItem({ item }: { item: MenuItem }) {
+export function MenuItem({ item }: { item: MenuItemProp }) {
   const global = useGlobalStore(
     useShallow((s) => ({
       theme: s.theme,

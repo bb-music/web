@@ -1,7 +1,7 @@
 import { Help, Plus } from '@icon-park/react';
 import styles from './index.module.scss';
 import { Input, Button, Modal } from '../../components';
-import { ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import { useSettingStore } from './store';
 import { api } from '../../api';
 import { userMusicOrderStore } from '../musicOrderList';
@@ -64,7 +64,7 @@ export function MainSetting() {
           style={{ width: 100 }}
           disabled
           readOnly
-          value={store.proxyServerPort?.toString() || ''}
+          value={store.proxyServerPort?.toString() ?? ''}
         />
       </SettingItem>
       <div className={styles.divider}></div>
@@ -152,7 +152,7 @@ export function MusicOrderSetting() {
     <>
       <SubTitle title="歌单同步设置" />
       {api.userMusicOrder.map((m, index) => {
-        const Comp = m.ConfigElement;
+        const Comp = m.ConfigElement as React.FC<{ onChange?: () => void }>;
         if (!Comp) return null;
         return (
           <div key={index}>

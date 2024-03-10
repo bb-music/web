@@ -1,4 +1,5 @@
-import React, { ChangeEventHandler } from 'react';
+import {type ChangeEventHandler} from 'react';
+import type React from 'react';
 import { cls } from '../../../utils';
 import styles from './index.module.scss';
 import { UIPrefix } from '../../../consts';

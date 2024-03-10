@@ -1,17 +1,16 @@
 import { useShallow } from 'zustand/react/shallow';
 import { useMusicOrderFormModalStore, useUserMusicOrderStore } from './store';
-import { MusicOrderFormModal, MusicOrderItemCard, MusicOrderListProps } from './common';
+import { MusicOrderFormModal, MusicOrderItemCard, type MusicOrderListProps } from './common';
 import { useEffect } from 'react';
 import { Plus } from '@icon-park/react';
 import { getMusicOrder } from '../../utils';
 import styles from './index.module.scss';
 import { showActionSheet } from '../../components';
 import { usePlayerStore } from '../player';
-import { MusicInter } from 'interface';
+import { type MusicInter } from 'interface';
 
 // 歌单 移动端
 export function MusicOrderFormMobile({ gotoMusicOrderDetail }: MusicOrderListProps) {
-  const player = usePlayerStore();
   const userMusicOrderStore = useUserMusicOrderStore(
     useShallow((state) => ({ load: state.load, list: state.list })),
   );
@@ -42,7 +41,7 @@ export function MusicOrderFormMobile({ gotoMusicOrderDetail }: MusicOrderListPro
             </div>
             {m.list.map((item) => {
               return (
-                <div className={styles.List}>
+                <div className={styles.List} key={item.id}>
                   <MusicOrderItemForMobile
                     data={item}
                     originName={m.name}
@@ -90,7 +89,7 @@ export function MusicOrderItemForMobile({
               key: 0,
               onClick: () => {
                 gotoMusicOrderDetail({
-                  data: data,
+                  data,
                   canEditMusic: true,
                   originName,
                 });
@@ -114,15 +113,15 @@ export function MusicOrderItemForMobile({
               label: '编辑',
               key: 3,
               onClick: () => {
-                modalStore.openHandler(data, (value) => {
+                modalStore.openHandler(data, async (value) => {
                   const id = value.id;
                   if (id && origin) {
-                    return origin.action.update({ ...value, id }).then((res) => {
+                    await origin.action.update({ ...value, id }).then((res) => {
                       userMusicOrderStore.load();
                     });
                   } else {
                     console.error('id为空');
-                    return Promise.reject('id为空');
+                    await Promise.reject(new Error('id为空'));
                   }
                 });
               },

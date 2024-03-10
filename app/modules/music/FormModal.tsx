@@ -18,7 +18,7 @@ export function MusicFormModal() {
       open={store.open}
       onOk={() => {
         const newData = { ...music, name: store.form.name };
-        const origin = getMusicOrder(store.originName!);
+        const origin = getMusicOrder(store.originName);
         // 远程歌单
         origin?.action.updateMusic(musicOrderId, newData).then(() => {
           musicOrderStore.load();

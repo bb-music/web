@@ -1,5 +1,5 @@
 // 音乐服务源
-import { MusicInter } from '../interface';
+import { type MusicInter } from '../interface';
 
 export const enum SearchType {
   Music = 'music', // 歌曲
@@ -28,7 +28,7 @@ export abstract class MusicServiceApi<T = any> {
   /** 源的显示名称 */
   abstract cname: string;
   /** 源的配置项 */
-  public abstract ConfigElement?(p: { onChange?: (v: T) => void }): React.ReactElement;
+  public abstract ConfigElement?: React.FC<{ onChange?: (v: T) => void }>;
   /** 源的操作 */
   abstract action: MusicServiceApiAction;
   /** 钩子 */

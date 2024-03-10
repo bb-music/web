@@ -1,10 +1,10 @@
-import { StoreApi, UseBoundStore } from 'zustand';
-import { PersistOptions } from 'zustand/middleware';
+import { type StoreApi, type UseBoundStore } from 'zustand';
+import { type PersistOptions } from 'zustand/middleware';
 
 type PersistListener<S> = (state: S) => void;
 
 type Write<T, U> = Omit<T, keyof U> & U;
-type StorePersist<S, Ps> = {
+interface StorePersist<S, Ps> {
   persist: {
     setOptions: (options: Partial<PersistOptions<S, Ps>>) => void;
     clearStorage: () => void;
@@ -14,7 +14,7 @@ type StorePersist<S, Ps> = {
     onFinishHydration: (fn: PersistListener<S>) => () => void;
     getOptions: () => Partial<PersistOptions<S, Ps>>;
   };
-};
+}
 
 export type PersistStore<S> = UseBoundStore<Write<StoreApi<S>, StorePersist<S, S>>>;
 

@@ -1,5 +1,5 @@
 import * as Toast from '@radix-ui/react-toast';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 
 export let message: MessageInstance;
@@ -37,7 +37,7 @@ export function MessageRoot() {
   return (
     <Toast.Provider swipeDirection="up">
       {items.map((item) => {
-        return <MessageItem {...item}></MessageItem>;
+        return <MessageItem {...item} key={item.key}></MessageItem>;
       })}
       <Toast.Viewport className={styles.ToastViewport} />
     </Toast.Provider>
@@ -52,8 +52,6 @@ interface MessageItemProps {
   type?: 'loading';
 }
 export function MessageItem({ open, message, onClose, duration = 3000 }: MessageItemProps) {
-  const timerRef = useRef(0);
-
   return (
     <Toast.Root
       className={styles.ToastRoot}

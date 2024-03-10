@@ -1,4 +1,4 @@
-import { MusicInter } from '../interface';
+import { type MusicInter } from '../interface';
 
 export abstract class UserMusicOrderApiAction {
   /** 获取我的歌单 */
@@ -23,6 +23,6 @@ export abstract class UserMusicOrderApiAction {
 export abstract class UserMusicOrderApi<T = any> {
   public abstract name: string; // 歌单源的唯一标识
   public abstract cname: string; // 显示名
-  public abstract ConfigElement?(p: { onChange?: (v: T) => void }): React.ReactElement;
+  public abstract ConfigElement?: React.FC<{ onChange?: (v: T) => void }>;
   public abstract action: UserMusicOrderApiAction;
 }

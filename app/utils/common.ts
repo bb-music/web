@@ -8,12 +8,10 @@ export function cls(...classList: Array<string | undefined | boolean>) {
   return classList.filter((i) => !!i).join(' ');
 }
 
-export function isJson<T = Array<any> | Record<string, any>>(val: string): T | undefined {
+export function isJson<T = any[] | Record<string, any>>(val: string): T | undefined {
   try {
     return JSON.parse(val);
-  } catch (e) {
-    return;
-  }
+  } catch (e) {}
 }
 /** 秒转 mm:ss */
 export function seconds2mmss(duration: number) {
@@ -21,7 +19,7 @@ export function seconds2mmss(duration: number) {
 }
 
 /** 根据歌单源的 name 获取对应的歌单源操作 */
-export function getMusicOrder(originName: string) {
+export function getMusicOrder(originName?: string) {
   const order = api.userMusicOrder.find((i) => i.name === originName);
   if (!order) {
     console.error(`歌单源 ${originName} 不存在`);
