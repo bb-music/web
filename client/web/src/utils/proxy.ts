@@ -1,5 +1,5 @@
 import { settingCache } from '../api/setting';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { type AxiosRequestConfig } from 'axios';
 
 export interface Resp<T = any> {
   code: number;
@@ -27,7 +27,7 @@ export async function proxyMusicService<T = any>({ proxy }: ProxyServiceOptions<
 
 // 是否开启了代理
 export async function musicServiceEnabledProxy(origin: string) {
-  const config = (await getMusicServiceConfig(origin)) as ProxyConfig;
+  const config = await getMusicServiceConfig(origin);
   return config.proxyEnabled;
 }
 
@@ -39,7 +39,7 @@ export async function getMusicServiceConfig<T>(name: string) {
 }
 
 export function mergeUrl(a: string, b: string) {
-  let a1 = a.endsWith('/') ? a : a + '/';
-  let b1 = b.startsWith('/') ? b.substring(1) : b;
+  const a1 = a.endsWith('/') ? a : a + '/';
+  const b1 = b.startsWith('/') ? b.substring(1) : b;
   return a1 + b1;
 }

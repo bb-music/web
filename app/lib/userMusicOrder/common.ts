@@ -3,18 +3,16 @@ export const enum UserMusicOrderOriginType {
   Github = 'Github',
 }
 
-export namespace UserMusicOrderOrigin {
-  interface BaseConfig {
-    enabled: boolean;
-  }
-
-  export interface ExtendClassConfig extends BaseConfig {
-    secret: string;
-    id?: string;
-  }
-  export interface GithubConfig extends BaseConfig {
-    token: string;
-    repo: string;
-  }
-  export type Config = ExtendClassConfig | GithubConfig;
+interface BaseConfig {
+  enabled: boolean;
 }
+
+export interface ExtendClassConfig extends BaseConfig {
+  secret: string;
+  id?: string;
+}
+export interface GithubConfig extends BaseConfig {
+  token: string;
+  repo: string;
+}
+export type Config = ExtendClassConfig | GithubConfig;

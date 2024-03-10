@@ -1,8 +1,8 @@
 import { create } from 'zustand';
-import { MusicServiceApi, api } from '../../api';
+import { type MusicServiceApi, api } from '../../api';
 import { JsonCacheStorage } from '../../lib/cacheStorage';
 import { getMusicService } from '../../utils';
-import { MusicInter } from '../../interface';
+import { type MusicInter } from '../../interface';
 
 const searchHistoryCache = new JsonCacheStorage<string[]>('bb-music-search-history');
 
@@ -16,7 +16,7 @@ interface SearchStoreState {
     pageSize: number;
     current: number;
   };
-  originList: Pick<MusicServiceApi, 'name' | 'cname'>[];
+  originList: Array<Pick<MusicServiceApi, 'name' | 'cname'>>;
   originActive: string;
 }
 interface SearchStoreHandler {
@@ -33,8 +33,8 @@ interface SearchStoreHandler {
 type SearchStore = SearchStoreState & SearchStoreHandler;
 
 export const searchStore = create<SearchStore>()((set, get) => {
-  const loadHistoryList = () => {
-    return getHistoryList().then((res) => {
+  const loadHistoryList = async () => {
+    await getHistoryList().then((res) => {
       set({ history: res });
     });
   };

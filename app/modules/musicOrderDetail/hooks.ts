@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MusicOrderDetailStoreState, useMusicOrderDetailStore } from './store';
+import { type MusicOrderDetailStoreState, useMusicOrderDetailStore } from './store';
 import { useUserMusicOrderStore } from '../musicOrderList';
 import { useShallow } from 'zustand/react/shallow';
 

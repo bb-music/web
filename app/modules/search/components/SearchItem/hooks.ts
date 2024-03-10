@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { MusicOrderDetailProps } from '../../..';
+import { type MusicOrderDetailProps } from '../../..';
 import { getMusicService } from '../../../../utils';
 import { SearchType } from '../../../../api';
-import { MusicInter } from '../../../../interface';
+import { type MusicInter } from '../../../../interface';
 
 export interface SearchItemProps {
   data: MusicInter.SearchItem;

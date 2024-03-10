@@ -4,7 +4,6 @@
   "version": "0.0.1",
   "description": "哔哔音乐 web 端 与 核心 UI 组件",
   "main": "app/index.ts",
-  "type": "module",
   "scripts": {
     "lint": "eslint {app,client}/**/*.{ts,tsx} --fix",
     "start:web": "npm run start --prefix ./client/web",

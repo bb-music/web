@@ -1,20 +1,13 @@
-import type { Metadata } from 'next';
 import './globals.css';
-import { App } from './App';
 
-export const metadata: Metadata = {
-  title: 'B-Music',
-  description: '',
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
-    <html lang='zh-cn'>
-      <App>{children}</App>
+    <html lang="zh-cn">
+      <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+      <head>
+        <title>哔哔音乐</title>
+      </head>
+      <body>{children}</body>
     </html>
   );
 }

@@ -1,2 +1,4 @@
-export * from './common';
+import * as UserMusicOrderOrigin from './common';
 export * from './modules/github';
+
+export { UserMusicOrderOrigin };

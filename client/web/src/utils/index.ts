@@ -5,12 +5,10 @@ export function cls(...classList: Array<string | undefined | boolean>) {
   return classList.filter((i) => !!i).join(' ');
 }
 
-export function isJson<T = Array<any> | Record<string, any>>(val: string): T | undefined {
+export function isJson<T = any[] | Record<string, any>>(val: string): T | undefined {
   try {
     return JSON.parse(val);
-  } catch (e) {
-    return;
-  }
+  } catch (e) {}
 }
 
 export function transformImgUrl(url: string) {

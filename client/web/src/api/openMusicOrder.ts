@@ -1,4 +1,4 @@
-import { OpenMusicOrderApi, MusicInter } from '@bb-music/app';
+import { type OpenMusicOrderApi, type MusicInter } from '@bb-music/app';
 import { proxyMusicService } from '../utils';
 
 export class OpenMusicOrderInstance implements OpenMusicOrderApi {

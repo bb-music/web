@@ -1,7 +1,7 @@
 import { isJson } from '../../../utils';
-import { UserMusicOrderOrigin } from '../common';
+import { type GithubConfig } from '../common';
 import axios from 'axios';
-import { MusicInter, UserMusicOrderApiAction } from '../../..';
+import { type MusicInter, type UserMusicOrderApiAction } from '../../..';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { Base64 } from 'js-base64';
@@ -23,7 +23,7 @@ interface ListResponse {
 }
 
 export class GithubUserMusicOrderAction implements UserMusicOrderApiAction {
-  constructor(public getConfig: () => Promise<UserMusicOrderOrigin.GithubConfig>) {}
+  constructor(public getConfig: () => Promise<GithubConfig>) {}
 
   public getList: UserMusicOrderApiAction['getList'] = async () => {
     const config = await this.getConfig();
@@ -41,13 +41,15 @@ export class GithubUserMusicOrderAction implements UserMusicOrderApiAction {
     }
     return list;
   };
+
   public create: UserMusicOrderApiAction['create'] = async (data) => {
     const config = await this.getConfig();
     const { request, filePath } = this.createConfig(config);
     const res = await this.getDataAndRsa(config);
-    let list = res.data;
+    const list = res.data;
     if (list.find((l) => l.name === data.name)) {
-      return Promise.reject(new Error('歌单已存在'));
+      await Promise.reject(new Error('歌单已存在'));
+      return;
     }
     const id = nanoid();
     list.push({
@@ -66,6 +68,7 @@ export class GithubUserMusicOrderAction implements UserMusicOrderApiAction {
       sha: res.sha,
     });
   };
+
   public update: UserMusicOrderApiAction['update'] = async (data) => {
     const config = await this.getConfig();
     await this.updateItem(
@@ -81,6 +84,7 @@ export class GithubUserMusicOrderAction implements UserMusicOrderApiAction {
       (c) => `更新歌单${c.name}(${c.id})`,
     );
   };
+
   public delete: UserMusicOrderApiAction['delete'] = async (data) => {
     const config = await this.getConfig();
     const { request, filePath } = this.createConfig(config);
@@ -88,7 +92,8 @@ export class GithubUserMusicOrderAction implements UserMusicOrderApiAction {
     let list = res.data;
     const current = list.find((l) => l.id === data.id);
     if (!current) {
-      return Promise.reject(new Error('歌单不存在'));
+      await Promise.reject(new Error('歌单不存在'));
+      return;
     }
     list = list.filter((l) => l.id !== data.id);
     const content = Base64.encode(JSON.stringify(list));
@@ -98,14 +103,16 @@ export class GithubUserMusicOrderAction implements UserMusicOrderApiAction {
       sha: res.sha,
     });
   };
+
   public getDetail: UserMusicOrderApiAction['getDetail'] = async (id) => {
     const res = await this.getList();
     const info = res.find((r) => r.id === id);
     if (!info) {
-      return Promise.reject(new Error('歌单不存在'));
+      return await Promise.reject(new Error('歌单不存在'));
     }
     return info;
   };
+
   public appendMusic: UserMusicOrderApiAction['appendMusic'] = async (id, musics) => {
     const config = await this.getConfig();
 
@@ -121,6 +128,7 @@ export class GithubUserMusicOrderAction implements UserMusicOrderApiAction {
       () => `新增歌曲`,
     );
   };
+
   public updateMusic: UserMusicOrderApiAction['updateMusic'] = async (id, music) => {
     const config = await this.getConfig();
 
@@ -145,6 +153,7 @@ export class GithubUserMusicOrderAction implements UserMusicOrderApiAction {
       () => `修改歌曲信息`,
     );
   };
+
   public deleteMusic: UserMusicOrderApiAction['deleteMusic'] = async (id, musics) => {
     const config = await this.getConfig();
 
@@ -163,7 +172,7 @@ export class GithubUserMusicOrderAction implements UserMusicOrderApiAction {
     );
   };
 
-  private async getDataAndRsa(config: UserMusicOrderOrigin.GithubConfig) {
+  private async getDataAndRsa(config: GithubConfig) {
     try {
       const res = await this.getData(config);
       return res;
@@ -174,10 +183,11 @@ export class GithubUserMusicOrderAction implements UserMusicOrderApiAction {
         const res = await this.getData(config);
         return res;
       }
-      return Promise.reject(e);
+      return await Promise.reject(e);
     }
   }
-  private createConfig(config: UserMusicOrderOrigin.GithubConfig) {
+
+  private createConfig(config: GithubConfig) {
     const { owner, repo } = transformRepoUrl(config.repo);
     const filePath = `/repos/${owner}/${repo}/contents/my.json`;
 
@@ -193,7 +203,8 @@ export class GithubUserMusicOrderAction implements UserMusicOrderApiAction {
       filePath,
     };
   }
-  private async getData(config: UserMusicOrderOrigin.GithubConfig) {
+
+  private async getData(config: GithubConfig) {
     const { request, filePath } = this.createConfig(config);
     const res = await request.get<ListResponse>(filePath);
     const data = isJson<MusicOrderItem[]>(Base64.decode(res.data.content));
@@ -202,7 +213,8 @@ export class GithubUserMusicOrderAction implements UserMusicOrderApiAction {
       sha: res.data.sha,
     };
   }
-  private async createMyJson(config: UserMusicOrderOrigin.GithubConfig) {
+
+  private async createMyJson(config: GithubConfig) {
     const { request, filePath } = this.createConfig(config);
     // 字符串转 base64
     const content = Base64.atob('[]');
@@ -211,9 +223,10 @@ export class GithubUserMusicOrderAction implements UserMusicOrderApiAction {
       content,
     });
   }
+
   private async updateItem(
     id: string,
-    config: UserMusicOrderOrigin.GithubConfig,
+    config: GithubConfig,
     cb: (l: MusicOrderItem) => Partial<MusicOrderItem>,
     message: (l: MusicOrderItem) => string,
   ) {
@@ -222,7 +235,7 @@ export class GithubUserMusicOrderAction implements UserMusicOrderApiAction {
     let list = res.data;
     const current = list.find((l) => l.id === id);
     if (!current) {
-      return Promise.reject(new Error('歌单不存在'));
+      return await Promise.reject(new Error('歌单不存在'));
     }
     list = list.map((l) => {
       if (l.id === id) {

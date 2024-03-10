@@ -25,7 +25,7 @@ export function usePlayer() {
     player.init();
   }, []);
   useEffect(() => {
-    if (!player.audio || !player.audio.addEventListener) return;
+    if (!player.audio?.addEventListener) return;
     (async () => {
       const d = Number(await api.cacheStorage.getItem(ProgressCacheKey));
       const t = isNaN(d) ? 0 : d;
@@ -59,7 +59,7 @@ export function usePlayer() {
       setCurrentTime(0);
       player.endNext();
     });
-    player.audio?.addEventListener('error', (err) => {
+    player.audio?.addEventListener('error', () => {
       message.error('播放失败');
       setCurrentTime(0);
       player.errorNext();

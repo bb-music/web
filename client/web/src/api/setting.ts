@@ -1,4 +1,4 @@
-import { api, SettingApi, SettingInfo } from '@bb-music/app';
+import { api, type SettingApi, type SettingInfo } from '@bb-music/app';
 import { JsonCacheStorage } from '../lib/cacheStorage';
 
 export const settingCache = new JsonCacheStorage<SettingInfo>('bb-setting');
@@ -20,10 +20,12 @@ export class SettingInstance implements SettingApi {
         }) || [],
     };
   };
+
   updateOpenMusicOrderOrigin: SettingApi['updateOpenMusicOrderOrigin'] = async (value) => {
-    return settingCache.update('openMusicOrderOrigin', value);
+    await settingCache.update('openMusicOrderOrigin', value);
   };
+
   updateUserMusicOrderOrigin: SettingApi['updateUserMusicOrderOrigin'] = async (value) => {
-    return settingCache.update('userMusicOrderOrigin', value);
+    await settingCache.update('userMusicOrderOrigin', value);
   };
 }

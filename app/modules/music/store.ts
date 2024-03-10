@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { MusicInter } from '../../interface';
+import { type MusicInter } from '../../interface';
 
 type MusicItem = MusicInter.MusicItem;
 

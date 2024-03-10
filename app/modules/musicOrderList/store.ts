@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { api } from '../../api';
-import { MusicInter } from '../../interface';
+import { type MusicInter } from '../../interface';
 
 type MusicItem = MusicInter.MusicItem;
 type MusicOrderItem = MusicInter.MusicOrderItem;
@@ -24,8 +24,8 @@ export const userMusicOrderStore = create<UserMusicOrderStore>()((set, get) => {
     list: [],
     load: async () => {
       const res = await Promise.all(
-        api.userMusicOrder.map((r) => {
-          return r.action.getList().catch(() => []);
+        api.userMusicOrder.map(async (r) => {
+          return await r.action.getList().catch(() => []);
         }),
       );
       const result: MusicOrderOriginItem[] = res.map((r, i) => {
@@ -153,5 +153,5 @@ export const useMusicOrderCollectModalStore = musicOrderCollectModalStore;
 
 // 收藏歌曲
 export function musicCollect(m: MusicItem[] | MusicItem) {
-  return musicOrderCollectModalStore.getState().show(m);
+  musicOrderCollectModalStore.getState().show(m);
 }

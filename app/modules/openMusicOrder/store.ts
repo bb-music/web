@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { api } from '../../api';
 import { settingStore } from '../setting';
-import { MusicInter } from '../../interface';
+import { type MusicInter } from '../../interface';
 
 type MusicOrderItem = MusicInter.MusicOrderItem;
 
@@ -22,7 +22,7 @@ export const useOpenMusicOrderStore = create<OpenMusicOrderStore>()((set, get) =
       const origins = settingStore.getState().openMusicOrderOrigin;
       const urls = origins.map((u) => u.trim()).filter((u) => !!u);
       const res = await Promise.all(
-        urls.map((url) => api.openMusicOrder.useOriginGetMusicOrder(url)),
+        urls.map(async (url) => await api.openMusicOrder.useOriginGetMusicOrder(url)),
       );
       const list: MusicOrderItem[] = [];
       res.forEach((r) => {

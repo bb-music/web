@@ -1,4 +1,9 @@
-import { AudioInstance, MusicApi, PlayerAudioAddEventListener, playerStore } from '@bb-music/app';
+import {
+  type AudioInstance,
+  type MusicApi,
+  type PlayerAudioAddEventListener,
+  playerStore,
+} from '@bb-music/app';
 
 class PlayerAudio implements AudioInstance {
   ctx = new Audio();
@@ -49,33 +54,43 @@ class PlayerAudio implements AudioInstance {
       });
     }
   }
+
   setCurrentTime(time: number): void {
     this.ctx.currentTime = time;
   }
+
   getReadyState() {
     return this.ctx.readyState;
   }
+
   getCurrentTime() {
     return this.ctx.currentTime;
   }
+
   setSrc(src: string): void {
     this.ctx.src = src;
   }
+
   play(): void {
     this.ctx.play();
   }
+
   pause(): void {
     this.ctx.pause();
   }
+
   getVolume(): number {
     return this.ctx.volume;
   }
+
   setVolume(volume: number): void {
     this.ctx.volume = volume;
   }
+
   addEventListener: PlayerAudioAddEventListener = (event, callback) => {
     this.ctx.addEventListener(event, callback as any);
   };
+
   removeEventListener: PlayerAudioAddEventListener = (event, callback) => {
     this.ctx.removeEventListener(event, callback as any);
   };

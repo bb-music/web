@@ -1,8 +1,8 @@
 import { PlayerMode, PlayerStatus } from './constants';
 import { create } from 'zustand';
-import { AudioInstance, api } from '../../api';
+import { type AudioInstance, api } from '../../api';
 import { getMusicService } from '../../utils';
-import { MusicInter } from '../../interface';
+import { type MusicInter } from '../../interface';
 
 type MusicItem = MusicInter.MusicItem;
 

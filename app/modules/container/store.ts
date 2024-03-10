@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { MusicOrderDetailProps } from '../musicOrderDetail';
+import { type MusicOrderDetailProps } from '../musicOrderDetail';
 import { musicOrderDetailStore } from '../musicOrderDetail/store';
 
 export const enum PageView {
