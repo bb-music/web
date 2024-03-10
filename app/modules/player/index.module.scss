@@ -113,7 +113,12 @@
     height: 40px;
     display: flex;
     align-items: center;
+    all: unset;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     &:hover {
       color: rgb(var(--main-color));
     }

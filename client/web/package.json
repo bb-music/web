@@ -1,8 +1,9 @@
 {
-  "name": "web",
+  "name": "@bb-music/web",
   "version": "0.0.1",
   "private": true,
   "author": "阿炸克斯 <975794403@qq.com>",
+  "main": "src/index.ts",
   "scripts": {
     "dev": "umi dev",
     "build": "umi build",
@@ -13,20 +14,12 @@
   },
   "dependencies": {
     "@bb-music/app": "workspace:*",
-    "axios": "^1.6.7",
-    "dayjs": "^1.11.10",
     "idb-keyval": "^6.2.1",
     "js-base64": "^3.7.7",
     "nanoid": "^5.0.6",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "zustand": "^4.5.1"
   },
   "devDependencies": {
-    "@types/node": "^20.11.20",
-    "@types/react": "^18.2.59",
-    "@types/react-dom": "^18.2.19",
-    "sass": "^1.71.1",
     "typescript": "^5.3.3",
     "umi": "^4.1.2",
     "vconsole": "^3.15.1"
