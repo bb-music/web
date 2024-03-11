@@ -1,0 +1,23 @@
+{
+  "name": "nextjs",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@bb-music/app": "workspace:*",
+    "@bb-music/web": "workspace:*",
+    "@bb-music/sdk-bili": "workspace:*",
+    "@bb-music/bb-types": "workspace:*",
+    "next": "14.1.0"
+  },
+  "devDependencies": {
+    "sass": "^1.70.0",
+    "typescript": "^5"
+  }
+}
