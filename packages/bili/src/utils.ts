@@ -33,5 +33,13 @@ export function encWbi(params: Record<string, any>, imgKey: string, subKey: stri
 
   const wbiSign = md5(query + mixinKey); // 计算 w_rid
 
-  return query + '&w_rid=' + wbiSign;
+  const data = {
+    wts: currTime,
+    w_rid: wbiSign,
+  };
+  return {
+    ...params,
+    ...data,
+  } as any as typeof params & typeof data;
+  // return query + '&w_rid=' + wbiSign;
 }

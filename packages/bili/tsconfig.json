@@ -1,21 +1,21 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "composite": true,
+    "target": "ESNext",
+    "module": "CommonJS",
     "allowJs": true,
     "skipLibCheck": true,
-    "moduleResolution": "bundler",
-    "importHelpers": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "baseUrl": "./",
     "strict": true,
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "outDir": "./dist"
+    "outDir": "dist",
+    "rootDir": "src",
+    "esModuleInterop": true,
+    "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
+    "declaration": true
   },
-  "include": ["./**/*.d.ts", "./**/*.ts", "./**/*.tsx"]
+  "references": [
+    {
+      "path": "../../packages/types"
+    }
+  ]
 }

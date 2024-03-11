@@ -8,11 +8,11 @@ import {
   type SearchResponse,
   type BiliVideoDetailResponse,
   type BiliVideoUrlResponse,
-} from './typing';
+} from './interface';
 import { encWbi } from './utils';
 import { type SearchParams } from '@bb-music/bb-types';
 
-const UserAgent =
+export const UserAgent =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
 export class BiliClient {
@@ -25,21 +25,22 @@ export class BiliClient {
     request.defaults.headers.common['User-Agent'] = UserAgent;
     request.interceptors.request.use((config) => {
       if (this.spiData) {
-        console.warn('spidata 为空');
-        config.headers.Cookies = `buvid4=${this.spiData?.b_4}; buvid3=${this.spiData?.b_4};`;
+        config.headers.Cookie = `buvid4=${this.spiData.b_4}; buvid3=${this.spiData.b_3};`;
+      } else {
+        console.warn('spidata 为空', config.url);
       }
       return config;
     });
     this.request = request;
   }
 
-  setSignData(signData: SignData) {
+  setSignData = (signData: SignData) => {
     this.signData = signData;
-  }
+  };
 
-  setSpiData(spiData: SpiData) {
+  setSpiData = (spiData: SpiData) => {
     this.spiData = spiData;
-  }
+  };
 
   // 获取认证秘钥
   public async getWbiKeys() {
@@ -59,7 +60,7 @@ export class BiliClient {
   }
 
   // 获取 spi
-  public async GetSpiData() {
+  public async getSpiData() {
     const url = 'https://api.bilibili.com/x/frontend/finger/spi';
     const res = await this.request.get<BiliResponse<SpiData>>(url);
     const data = res.data.data;
@@ -80,13 +81,20 @@ export class BiliClient {
   // 搜索
   public async search(params: SearchParams) {
     const url = 'https://api.bilibili.com/x/web-interface/wbi/search/type';
-    const res = await this.request.get<BiliResponse<SearchResponse>>(url, {
-      params: {
-        search_type: 'video',
-        keyword: params.keyword,
-        page: params.page,
-      },
-    });
+    const res = await this.request
+      .get<BiliResponse<SearchResponse>>(url, {
+        params: this.sign({
+          search_type: 'video',
+          keyword: params.keyword,
+          page: params.page,
+        }),
+      })
+      .catch(async (e) => {
+        console.log(e);
+        return await Promise.reject(e);
+      });
+    console.log('res: ', res.data);
+
     return res.data.data;
   }
 
@@ -94,10 +102,10 @@ export class BiliClient {
   public async getVideoDetail(aid: string, bvid: string) {
     const url = 'https://api.bilibili.com/x/web-interface/view';
     const res = await this.request.get<BiliResponse<BiliVideoDetailResponse>>(url, {
-      params: {
+      params: this.sign({
         aid,
         bvid,
-      },
+      }),
     });
     return res.data.data;
   }
@@ -106,12 +114,12 @@ export class BiliClient {
   public async getVideoUrl(aid: string, bvid: string, cid: string) {
     const url = 'https://api.bilibili.com/x/player/wbi/playurl';
     const res = await this.request.get<BiliResponse<BiliVideoUrlResponse>>(url, {
-      params: {
+      params: this.sign({
         aid,
         bvid,
         cid,
-      },
+      }),
     });
-    return res.data;
+    return res.data.data;
   }
 }

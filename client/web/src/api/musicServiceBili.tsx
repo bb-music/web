@@ -95,6 +95,7 @@ export class BiliMusicServiceInstance implements BiliMusicServiceApi {
           url: `/api/config/${NAME}`,
         },
       });
+      console.log('res: ', res);
       setConfig(res);
       settingCache.get().then((res) => {
         if (Array.isArray(res?.musicServices)) {

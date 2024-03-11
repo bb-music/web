@@ -1,0 +1,17 @@
+{
+  "extends": "@tsconfig/node20/tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2021",
+    "esModuleInterop": true,
+    "module": "CommonJS"
+  },
+  "references": [
+    {
+      "path": "../../packages/bili"
+    },
+    {
+      "path": "../../packages/types"
+    }
+  ],
+  "include": ["src/**/*"]
+}

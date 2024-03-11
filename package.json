@@ -8,8 +8,12 @@
     "lint": "eslint {app,client,packages}/**/*.{ts,tsx} --fix",
     "dev:web": "npm run dev --prefix ./client/web",
     "build:web": "npm run build --prefix ./client/web",
-    "dev:next": "npm run dev --prefix ./client/nextjs",
-    "build:next": "npm run build --prefix ./client/nextjs"
+    "start:server": "npm run start --prefix ./client/server",
+    "dev:server": "npm run build:bbtype & npm run build:sdk:bili & npm run dev --prefix ./client/server",
+    "build:server:dev": "npm run build:bbtype & npm run build:sdk:bili & npm run build --prefix ./client/server",
+    "build:server:prod": "npm run build:bbtype & npm run build:sdk:bili & npm run build --prefix ./client/server & npm run pullfe --prefix ./client/server",
+    "build:sdk:bili": "npm run build --prefix ./packages/bili",
+    "build:bbtype": "npm run build --prefix ./packages/types"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +37,7 @@
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-react": "^7.34.0",
     "prettier": "^3.2.5",
-    "sass": "^1.71.1"
+    "sass": "^1.71.1",
+    "typescript": "^5"
   }
 }

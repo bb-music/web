@@ -46,9 +46,9 @@ export interface SearchItem {
   name: string;
   duration: number;
   author: string;
-  type: SearchType;
+  type?: SearchType;
   origin: OriginType;
-  musicList: MusicItem[];
+  musicList?: MusicItem[];
 }
 
 export interface SearchResponse {

@@ -3,9 +3,12 @@
   "private": false,
   "version": "0.0.1",
   "author": "阿炸克斯 <975794403@qq.com>",
-  "main": "src/index.ts",
-  "type": "module",
-  "scripts": {},
+  "main": "dist/index.js",
+  "module": "src/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
     "md5": "^2.3.0"
   },
