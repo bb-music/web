@@ -9,7 +9,7 @@
     "dev:web": "npm run dev --prefix ./client/web",
     "build:web": "npm run build --prefix ./client/web",
     "build": "npm run build:web & npm run build:server:prod",
-    "start:server": "npm run start --prefix ./client/server",
+    "start": "npm run start --prefix ./client/server",
     "dev:server": "npm run build:bbtype & npm run build:sdk:bili & npm run dev --prefix ./client/server",
     "build:server:dev": "npm run build:bbtype & npm run build:sdk:bili & npm run build --prefix ./client/server",
     "build:server:prod": "npm run build:bbtype & npm run build:sdk:bili & npm run build --prefix ./client/server & npm run pullfe --prefix ./client/server",
