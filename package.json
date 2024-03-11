@@ -8,7 +8,7 @@
     "lint": "eslint {app,client,packages}/**/*.{ts,tsx} --fix",
     "dev:web": "npm run dev --prefix ./client/web",
     "build:web": "npm run build --prefix ./client/web",
-    "build:vercel": "npm run build:web & npm run build:server:prod",
+    "build": "npm run build:web & npm run build:server:prod",
     "start:server": "npm run start --prefix ./client/server",
     "dev:server": "npm run build:bbtype & npm run build:sdk:bili & npm run dev --prefix ./client/server",
     "build:server:dev": "npm run build:bbtype & npm run build:sdk:bili & npm run build --prefix ./client/server",
