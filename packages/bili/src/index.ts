@@ -12,6 +12,8 @@ import {
 import { encWbi } from './utils';
 import { type SearchParams } from '@bb-music/bb-types';
 
+export * from './interface';
+
 export const UserAgent =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
@@ -24,15 +26,21 @@ export class BiliClient {
     const request = axios.create();
     request.defaults.headers.common['User-Agent'] = UserAgent;
     request.interceptors.request.use((config) => {
-      if (this.spiData) {
-        config.headers.Cookie = `buvid4=${this.spiData.b_4}; buvid3=${this.spiData.b_3};`;
-      } else {
+      config.headers.Cookie = this.getCookie();
+      if (!this.spiData) {
         console.warn('spidata 为空', config.url);
       }
       return config;
     });
     this.request = request;
   }
+
+  getCookie = () => {
+    if (this.spiData) {
+      return `buvid4=${this.spiData.b_4}; buvid3=${this.spiData.b_3};`;
+    }
+    return ``;
+  };
 
   setSignData = (signData: SignData) => {
     this.signData = signData;
@@ -43,7 +51,7 @@ export class BiliClient {
   };
 
   // 获取认证秘钥
-  public async getWbiKeys() {
+  public async getSignData() {
     const url = `https://api.bilibili.com/x/web-interface/nav`;
     const res = await this.request.get<BiliResponse<BiliWbiKeysResult>>(url);
     const {

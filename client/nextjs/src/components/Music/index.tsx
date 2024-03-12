@@ -8,8 +8,7 @@ import { useEffect, useState } from 'react';
 
 export function Music() {
   const [initLoading, setInitLoading] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  console.log('isMobile: ', isMobile);
+  const [isMobile, setIsMobile] = useState<boolean | undefined>();
   const init = async () => {
     setInitLoading(true);
     try {
@@ -21,12 +20,11 @@ export function Music() {
   };
 
   useEffect(() => {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
-    setIsMobile(isMobile);
+    setIsMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(window.navigator.userAgent));
     init();
   }, []);
 
-  if (!window?.navigator) return null;
+  if (typeof isMobile === 'undefined') return null;
 
   return (
     <div
