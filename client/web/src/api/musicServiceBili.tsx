@@ -98,7 +98,7 @@ export class BiliMusicServiceInstance implements BiliMusicServiceApi {
       setConfig(res);
       settingCache.get().then((res) => {
         if (Array.isArray(res?.musicServices)) {
-          const c = res.musicServices?.find((m) => m.name === NAME)?.config;
+          const c = res?.musicServices?.find((m) => m.name === NAME)?.config;
           setData(c as BiliMusicServiceConfigValue);
         }
       });

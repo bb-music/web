@@ -8,10 +8,10 @@
     "lint": "eslint {app,client,packages}/**/*.{ts,tsx} --fix",
     "dev:web": "npm run dev --prefix ./client/web",
     "build:web": "npm run build --prefix ./client/web",
-    "dev:server": "npm run dev --prefix ./client/nextjs",
-    "start": "npm run start --prefix ./client/nextjs",
-    "start:server": "npm run start --prefix ./client/nextjs",
-    "build:server": "npm run build --prefix ./client/nextjs"
+    "dev:server": "npm run dev --prefix ./client/next",
+    "start": "npm run start --prefix ./client/next",
+    "start:server": "npm run start --prefix ./client/next",
+    "build:server": "npm run build --prefix ./client/next"
   },
   "keywords": [],
   "author": "",
@@ -21,13 +21,13 @@
     "@vercel/node": "^3.0.22",
     "axios": "^1.6.7",
     "dayjs": "^1.11.10",
-    "react": "^18",
-    "react-dom": "^18"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^18.2.59",
+    "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^9.1.0",
