@@ -67,3 +67,15 @@ export interface SearchResponse {
   pageSize: number; // 每页条数
   data: SearchItem[];
 }
+
+// 哔哩哔哩的认证配置
+export interface BiliBiliAuthConfig {
+  sign_data: {
+    img_key: string;
+    sub_key: string;
+  };
+  spi_data: {
+    b_3: string;
+    b_4: string;
+  };
+}

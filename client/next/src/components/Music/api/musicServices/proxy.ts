@@ -1,4 +1,4 @@
-import { settingCache } from '../api/setting';
+import { settingCache } from '@bb-music/web/src/api/setting';
 import axios, { type AxiosRequestConfig } from 'axios';
 
 export interface Resp<T = any> {

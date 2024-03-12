@@ -28,7 +28,7 @@ export function isJson<T = any[] | Record<string, any>>(val: string): T | undefi
 
 export function validateOrigin(origin?: string | null) {
   if (!origin) return false;
-  return [BBTypes.OriginType.BiliOriginName, BBTypes.OriginType.YouTubeOriginName].includes(
+  return [BBTypes.OriginType.Bili, BBTypes.OriginType.YouTube].includes(
     origin as BBTypes.OriginType,
   );
 }

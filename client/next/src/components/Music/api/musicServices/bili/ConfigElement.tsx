@@ -1,9 +1,9 @@
 import { type MusicServiceApi, SettingItem, Input, Button, Switch, message } from '@bb-music/app';
-import { proxyMusicService } from '../../../utils';
 import { settingCache } from '../../setting';
 import { useEffect, useState } from 'react';
 import { NAME } from './consts';
 import { type BiliBiliAuthConfig } from '@bb-music/bb-types';
+import { proxyMusicService } from '../proxy';
 
 class BiliMusicServiceConfigValue {
   enabled = true;
