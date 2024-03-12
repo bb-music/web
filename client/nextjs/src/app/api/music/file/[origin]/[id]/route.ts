@@ -9,5 +9,7 @@ export async function GET(
     throw new Error('音乐源错误');
   }
 
-  return await service[origin].getMusicFile(id);
+  const res = await service[origin].getMusicFile(id);
+  res?.headers.set('Cache-control', `max-age=${1 * 60 * 60 * 24 * 365 * 10}`);
+  return res;
 }

@@ -34,9 +34,11 @@ export function validateOrigin(origin?: string | null) {
 }
 
 export function successResp(data: any) {
-  return Response.json({
-    code: 200,
-    msg: 'success',
-    data,
-  });
+  return new Response(
+    JSON.stringify({
+      code: 200,
+      msg: 'success',
+      data,
+    }),
+  );
 }
