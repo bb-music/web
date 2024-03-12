@@ -1,12 +1,11 @@
 import { isJson } from '../../../utils';
 import { type GithubConfig } from '../common';
 import axios from 'axios';
-import { type MusicInter, type UserMusicOrderApiAction } from '../../..';
+import { type UserMusicOrderApiAction } from '../../../api';
+import { type MusicOrderItem } from '@bb-music/bb-types';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { Base64 } from 'js-base64';
-
-type MusicOrderItem = MusicInter.MusicOrderItem;
 
 interface ListResponse {
   name: string;

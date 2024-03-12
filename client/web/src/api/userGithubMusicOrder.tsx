@@ -1,19 +1,13 @@
+import { Button, message, Input, SettingItem, type UserMusicOrderApi } from '@bb-music/app';
 import {
-  Button,
-  message,
-  Input,
-  SettingItem,
-  userMusicOrderOrigin,
-  type UserMusicOrderApi,
-  UserMusicOrderOrigin,
-} from '@bb-music/app';
-
+  type GithubConfig,
+  GithubUserMusicOrderAction,
+  UserMusicOrderOriginType,
+} from '@bb-music/app/lib/userMusicOrder';
 import { useEffect, useState } from 'react';
 import { settingCache } from './setting';
 
-const { GithubUserMusicOrderAction } = userMusicOrderOrigin;
-
-const NAME = UserMusicOrderOrigin.UserMusicOrderOriginType.Github;
+const NAME = UserMusicOrderOriginType.Github;
 const CNAME = 'Github 歌单';
 
 // Github 源
@@ -84,7 +78,7 @@ export class UserGithubMusicOrderInstance implements GithubMusicOrder {
   action = new GithubUserMusicOrderAction(async () => {
     const setting = await settingCache.get();
     const config = setting?.userMusicOrderOrigin.find((n) => n.name === NAME)?.config;
-    return config as UserMusicOrderOrigin.GithubConfig;
+    return config as GithubConfig;
   });
 }
 

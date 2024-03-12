@@ -4,7 +4,7 @@ import { MusicInstance } from './music';
 import { OpenMusicOrderInstance } from './openMusicOrder';
 import { cacheStorage } from '../lib/cacheStorage';
 import { UtilsInstance } from './utils';
-import { BiliMusicServiceInstance } from './musicServiceBili';
+import { BiliMusicServiceInstance } from './musicServices';
 import { UserLocalMusicOrderInstance } from './userLocalMusicOrder';
 import { UserGithubMusicOrderInstance } from './userGithubMusicOrder';
 

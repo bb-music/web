@@ -1,9 +1,7 @@
 import { create } from 'zustand';
 import { api } from '../../api';
 import { settingStore } from '../setting';
-import { type MusicInter } from '../../interface';
-
-type MusicOrderItem = MusicInter.MusicOrderItem;
+import { type MusicOrderItem } from '@bb-music/bb-types';
 
 interface OpenMusicOrderStoreState {
   list: MusicOrderItem[];

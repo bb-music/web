@@ -1,7 +1,5 @@
+import { type MusicItem } from '@bb-music/bb-types';
 import { create } from 'zustand';
-import { type MusicInter } from '../../interface';
-
-type MusicItem = MusicInter.MusicItem;
 
 // 修改音乐信息
 interface MusicFormModalModalState {

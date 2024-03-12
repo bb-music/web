@@ -2,13 +2,13 @@ import { create } from 'zustand';
 import { type MusicServiceApi, api } from '../../api';
 import { JsonCacheStorage } from '../../lib/cacheStorage';
 import { getMusicService } from '../../utils';
-import { type MusicInter } from '../../interface';
+import { type SearchItem, type SearchParams } from '@bb-music/bb-types';
 
 const searchHistoryCache = new JsonCacheStorage<string[]>('bb-music-search-history');
 
 interface SearchStoreState {
-  params: MusicInter.SearchParams;
-  data: MusicInter.SearchItem[];
+  params: SearchParams;
+  data: SearchItem[];
   loading: boolean;
   history: string[];
   pagination?: {
@@ -21,7 +21,7 @@ interface SearchStoreState {
 }
 interface SearchStoreHandler {
   init: () => Promise<void>;
-  setParams: (params: Partial<MusicInter.SearchParams>) => void;
+  setParams: (params: Partial<SearchParams>) => void;
   load: () => Promise<void>;
   loadHistoryList: () => Promise<void>;
   deleteHistory: (keyword: string) => Promise<void>;
@@ -148,10 +148,5 @@ async function appendHistory(name: string) {
   if (list.length > 40) {
     list = list.splice(0, 40);
   }
-  await searchHistoryCache.set(list);
-}
-async function deleteHistory(name: string) {
-  const res = await getHistoryList();
-  const list = res.filter((r) => r !== name);
   await searchHistoryCache.set(list);
 }

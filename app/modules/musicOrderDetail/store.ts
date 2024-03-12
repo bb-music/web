@@ -1,7 +1,5 @@
+import { type MusicOrderItem } from '@bb-music/bb-types';
 import { create } from 'zustand';
-import { type MusicInter } from '../../interface';
-
-type MusicOrderItem = MusicInter.MusicOrderItem;
 
 export interface MusicOrderDetailStoreState {
   data?: MusicOrderItem;

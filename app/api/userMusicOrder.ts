@@ -1,4 +1,4 @@
-import { type MusicInter } from '../interface';
+import type * as MusicInter from '@bb-music/bb-types';
 
 export abstract class UserMusicOrderApiAction {
   /** 获取我的歌单 */

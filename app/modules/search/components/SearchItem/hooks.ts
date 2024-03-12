@@ -1,18 +1,17 @@
 import { useState } from 'react';
 import { type MusicOrderDetailProps } from '../../..';
 import { getMusicService } from '../../../../utils';
-import { SearchType } from '../../../../api';
-import { type MusicInter } from '../../../../interface';
+import { SearchType, type SearchItem } from '@bb-music/bb-types';
 
 export interface SearchItemProps {
-  data: MusicInter.SearchItem;
+  data: SearchItem;
   gotoMusicOrderDetail: (opt: MusicOrderDetailProps) => void;
 }
 
 interface SearchItemHookProps {
-  data: MusicInter.SearchItem;
-  onDetailIsMusicOrder: (info: MusicInter.SearchItem) => void;
-  onDetailIsMusic: (info: MusicInter.SearchItem) => void;
+  data: SearchItem;
+  onDetailIsMusicOrder: (info: SearchItem) => void;
+  onDetailIsMusic: (info: SearchItem) => void;
 }
 export function useSearchItem({
   data,
@@ -20,7 +19,7 @@ export function useSearchItem({
   onDetailIsMusic,
 }: SearchItemHookProps) {
   const [loading, setLoading] = useState(false);
-  const [music, setMusic] = useState<MusicInter.SearchItem>();
+  const [music, setMusic] = useState<SearchItem>();
   const getDetailHandler = async () => {
     setLoading(true);
     try {

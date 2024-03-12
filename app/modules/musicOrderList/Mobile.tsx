@@ -7,7 +7,7 @@ import { getMusicOrder } from '../../utils';
 import styles from './index.module.scss';
 import { showActionSheet } from '../../components';
 import { usePlayerStore } from '../player';
-import { type MusicInter } from '../../interface';
+import { type MusicOrderItem } from '@bb-music/bb-types';
 
 // 歌单 移动端
 export function MusicOrderFormMobile({ gotoMusicOrderDetail }: MusicOrderListProps) {
@@ -63,7 +63,7 @@ export function MusicOrderItemForMobile({
   originName,
   gotoMusicOrderDetail,
 }: {
-  data: MusicInter.MusicOrderItem;
+  data: MusicOrderItem;
   originName?: string;
   gotoMusicOrderDetail: MusicOrderListProps['gotoMusicOrderDetail'];
 }) {

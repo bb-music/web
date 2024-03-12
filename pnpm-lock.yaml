@@ -69,6 +69,9 @@ importers:
 
   app:
     dependencies:
+      '@bb-music/bb-types':
+        specifier: workspace:*
+        version: link:../packages/types
       '@icon-park/react':
         specifier: ^1.4.2
         version: 1.4.2(react-dom@18.2.0)(react@18.2.0)
@@ -225,6 +228,9 @@ importers:
       '@bb-music/app':
         specifier: workspace:*
         version: link:../../app
+      '@bb-music/bb-types':
+        specifier: workspace:*
+        version: link:../../packages/types
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.1

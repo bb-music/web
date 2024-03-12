@@ -18,9 +18,7 @@ import styles from './index.module.scss';
 import { Image } from '../../components/ui/image';
 import { type MusicOrderDetailProps } from '../musicOrderDetail';
 import { cls, getMusicOrder } from '../../utils';
-import { type MusicInter } from '../../interface';
-
-type MusicOrderItem = MusicInter.MusicOrderItem;
+import { type MusicOrderItem } from '@bb-music/bb-types';
 
 export interface MusicOrderListProps {
   gotoMusicOrderDetail: ListProps['gotoMusicOrderDetail'];
@@ -221,7 +219,7 @@ export function MusicOrderItemCard({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & {
-  data: MusicInter.MusicOrderItem;
+  data: MusicOrderItem;
   onClick?: () => void;
 }) {
   return (

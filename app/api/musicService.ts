@@ -1,14 +1,9 @@
 // 音乐服务源
-import { type MusicInter } from '../interface';
-
-export const enum SearchType {
-  Music = 'music', // 歌曲
-  Order = 'order', // 歌单
-}
+import type * as MusicInter from '@bb-music/bb-types';
 
 export abstract class MusicServiceApiAction {
   // 搜索
-  abstract searchList: (params: MusicInter.SearchParams) => Promise<MusicInter.SearchResult>;
+  abstract searchList: (params: MusicInter.SearchParams) => Promise<MusicInter.SearchResponse>;
   // 搜索结果的详情
   abstract searchItemDetail: (item: MusicInter.SearchItem) => Promise<MusicInter.SearchItem>;
   /** 获取音乐播放地址 */

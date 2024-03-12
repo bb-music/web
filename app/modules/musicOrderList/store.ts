@@ -1,9 +1,6 @@
 import { create } from 'zustand';
 import { api } from '../../api';
-import { type MusicInter } from '../../interface';
-
-type MusicItem = MusicInter.MusicItem;
-type MusicOrderItem = MusicInter.MusicOrderItem;
+import { type MusicItem, type MusicOrderItem } from '@bb-music/bb-types';
 
 interface MusicOrderOriginItem {
   name: string;

@@ -1,59 +1,69 @@
+// 歌曲源
 export const enum OriginType {
-  BiliOriginName = 'bili', // 哔哩哔哩
-  YouTubeOriginName = 'youTube', // YouTube
+  Bili = 'bili', // 哔哩哔哩
+  YouTube = 'youTube', // YouTube
 }
 
+// 搜索结果类型
 export const enum SearchType {
-  SearchTypeMusic = 'music', // 歌曲
-  SearchTypeOrder = 'order', // 歌单
+  Music = 'music', // 歌曲
+  Order = 'order', // 歌单
 }
 
-export interface MusicOrderItem {
-  id: string;
-  name: string;
-  cover: string;
-  desc: string;
-  author: string;
-  musicList: MusicItem[];
-  created_at: string;
-  updated_at: string;
-}
-
+// 下载歌曲
 export interface DownloadMusicParams {
-  id: string;
-  origin: OriginType;
-  name: string;
-  download_dir: string;
+  id: string; // 歌曲 ID
+  origin: OriginType; // 歌曲源
+  name: string; // 歌曲名称
+  download_dir: string; // 保存路径
 }
 
+/** 歌曲信息 */
 export interface MusicItem {
-  id: string;
-  cover: string;
-  name: string;
-  duration: number;
-  author: string;
-  origin: OriginType;
+  id: string; // ID
+  cover?: string; // 封面
+  name: string; // 名称
+  duration: number; // 时长
+  author?: string; // 作者
+  origin: string; // 来源
+  created_at?: string; // 创建时间
+  updated_at?: string; // 更新时间
 }
 
+/** 歌单信息 */
+export interface MusicOrderItem {
+  id: string; // ID
+  cover?: string; // 封面
+  name: string; // 名称
+  author?: string; // 作者
+  desc?: string; // 描述
+  musicList?: MusicItem[]; // 音乐列表
+  created_at?: string; // 创建时间
+  updated_at?: string; // 更新时间
+}
+
+// 搜索参数
 export interface SearchParams {
   keyword: string;
-  page: string;
-}
-
-export interface SearchItem {
-  id: string;
-  cover: string;
-  name: string;
-  duration: number;
-  author: string;
-  type?: SearchType;
-  origin: OriginType;
-  musicList?: MusicItem[];
-}
-
-export interface SearchResponse {
   current: number;
-  total: number;
-  pageSize: number;
+}
+
+// 搜索结果条目
+export interface SearchItem {
+  id: string; // ID
+  cover: string; // 封面
+  name: string; // 名称
+  duration: number; // 时长
+  author: string; // 作者
+  type?: SearchType; // 类型
+  origin: string; // 来源
+  musicList?: MusicItem[]; // 歌单中的歌曲列表
+}
+
+// 搜索结果
+export interface SearchResponse {
+  current: number; // 当前页
+  total: number; // 总数
+  pageSize: number; // 每页条数
   data: SearchItem[];
 }

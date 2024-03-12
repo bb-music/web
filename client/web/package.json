@@ -1,6 +1,6 @@
 {
   "name": "@bb-music/web",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "private": true,
   "author": "阿炸克斯 <975794403@qq.com>",
   "main": "src/index.ts",
@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@bb-music/app": "workspace:*",
+    "@bb-music/bb-types": "workspace:*",
     "idb-keyval": "^6.2.1",
     "js-base64": "^3.7.7",
     "nanoid": "^5.0.6",

@@ -2,9 +2,7 @@ import { PlayerMode, PlayerStatus } from './constants';
 import { create } from 'zustand';
 import { type AudioInstance, api } from '../../api';
 import { getMusicService } from '../../utils';
-import { type MusicInter } from '../../interface';
-
-type MusicItem = MusicInter.MusicItem;
+import { type MusicItem } from '@bb-music/bb-types';
 
 const CACHE_KEY = 'BBPlayerStorage';
 
@@ -64,7 +62,7 @@ export const playerStore = create<PlayerStore>()((set, get) => {
     playerStatus: PlayerStatus.Stop,
     playerLoading: false,
     playerList: [],
-    current: void 0,
+    // current: void 0,
     playerMode: PlayerMode.ListLoop,
     playerHistory: [],
     init: async () => {

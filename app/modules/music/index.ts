@@ -2,12 +2,10 @@ import { userMusicOrderStore } from '../musicOrderList';
 import { message } from '../../components/ui/message';
 import { musicFormModalStore } from './store';
 import { getMusicOrder, getMusicService } from '../../utils';
-import { type MusicInter } from '../../interface';
+import { type MusicItem } from '@bb-music/bb-types';
 
 export * from './store';
 export * from './FormModal';
-
-type MusicItem = MusicInter.MusicItem;
 
 // 删除歌曲
 export function deleteMusic({

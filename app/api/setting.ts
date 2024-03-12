@@ -1,3 +1,5 @@
+import type React from 'react';
+
 interface UserMusicOrderOriginItem<T = Record<string, any>> {
   name: string;
   config: T;
@@ -29,4 +31,6 @@ export abstract class SettingApi {
   abstract updateOpenMusicOrderOrigin: (value: string[]) => Promise<void>;
   /** 更新个人歌单同步源 */
   abstract updateUserMusicOrderOrigin: (value: UserMusicOrderOriginItem[]) => Promise<void>;
+  /** 扩展组件 */
+  abstract ExtraElement?: React.ReactNode;
 }

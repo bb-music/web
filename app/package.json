@@ -1,12 +1,13 @@
 {
   "name": "@bb-music/app",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "阿炸克斯 <975794403@qq.com>",
   "main": "index.ts",
   "type": "module",
   "scripts": {},
   "dependencies": {
+    "@bb-music/bb-types": "workspace:*",
     "@icon-park/react": "^1.4.2",
     "@radix-ui/react-context-menu": "^2.1.5",
     "@radix-ui/react-dialog": "^1.0.5",
