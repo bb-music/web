@@ -8,12 +8,10 @@
     "lint": "eslint {app,client,packages}/**/*.{ts,tsx} --fix",
     "dev:web": "npm run dev --prefix ./client/web",
     "build:web": "npm run build --prefix ./client/web",
-    "build": "npm run build:web & npm run build:server:prod",
-    "start:server": "npm run start --prefix ./client/nextjs",
     "dev:server": "npm run dev --prefix ./client/nextjs",
-    "build:server": "npm run build:bbtype & npm run build:sdk:bili & npm run build --prefix ./client/nextjs",
-    "build:sdk:bili": "npm run build --prefix ./packages/bili",
-    "build:bbtype": "npm run build --prefix ./packages/types"
+    "start": "npm run start --prefix ./client/nextjs",
+    "start:server": "npm run start --prefix ./client/nextjs",
+    "build:server": "npm run build --prefix ./client/nextjs"
   },
   "keywords": [],
   "author": "",
