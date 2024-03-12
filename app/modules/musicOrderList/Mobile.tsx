@@ -7,7 +7,7 @@ import { getMusicOrder } from '../../utils';
 import styles from './index.module.scss';
 import { showActionSheet } from '../../components';
 import { usePlayerStore } from '../player';
-import { type MusicInter } from 'interface';
+import { type MusicInter } from '../../interface';
 
 // 歌单 移动端
 export function MusicOrderFormMobile({ gotoMusicOrderDetail }: MusicOrderListProps) {

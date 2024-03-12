@@ -101,8 +101,6 @@ export class BiliClient {
         console.log(e);
         return await Promise.reject(e);
       });
-    console.log('res: ', res.data);
-
     return res.data.data;
   }
 
