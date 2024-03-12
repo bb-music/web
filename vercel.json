@@ -1,4 +1,0 @@
-{
-  "buildCommand": "npm run build:server",
-  "outputDirectory": "client/nextjs"
-}
