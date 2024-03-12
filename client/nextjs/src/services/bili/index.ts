@@ -7,8 +7,6 @@ import {
   duration2Seconds,
   unicodeBiliId,
 } from './utils';
-
-import axios from 'axios';
 import { JsonStorage } from '@/lib/fileStorage';
 import path from 'path';
 import dayjs from 'dayjs';

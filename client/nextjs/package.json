@@ -14,11 +14,14 @@
     "@bb-music/bb-types": "workspace:*",
     "@bb-music/sdk-bili": "workspace:*",
     "@bb-music/web": "workspace:*",
+    "axios": "^1.6.7",
     "fs-extra": "^11.2.0",
     "next": "14.1.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.0",
     "sass": "^1.70.0",
     "typescript": "^5"
   }
