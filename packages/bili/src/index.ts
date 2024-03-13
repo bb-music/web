@@ -94,7 +94,7 @@ export class BiliClient {
         params: this.sign({
           search_type: 'video',
           keyword: params.keyword,
-          page: params.page,
+          page: params.current + '',
         }),
       })
       .catch(async (e) => {
