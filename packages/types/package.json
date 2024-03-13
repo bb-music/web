@@ -1,7 +1,7 @@
 {
   "name": "@bb-music/bb-types",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "阿炸克斯 <975794403@qq.com>",
   "main": "index.ts",
   "scripts": {
