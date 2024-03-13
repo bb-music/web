@@ -1,9 +1,16 @@
-import { type MusicServiceApi, SettingItem, Input, Button, Switch, message } from '@bb-music/app';
-import { proxyMusicService } from '../../../utils';
-import { settingCache } from '../../setting';
+import {
+  type MusicServiceApi,
+  SettingItem,
+  Input,
+  Button,
+  Switch,
+  message,
+  type SettingInfo,
+} from '@bb-music/app';
 import { useEffect, useState } from 'react';
-import { NAME } from './consts';
 import { type BiliBiliAuthConfig } from '@bb-music/bb-types';
+import { proxyMusicService } from '../../../utils';
+import { NAME } from './consts';
 
 class BiliMusicServiceConfigValue {
   enabled = true;
@@ -14,11 +21,15 @@ class BiliMusicServiceConfigValue {
 
 type BiliMusicServiceApi = MusicServiceApi<BiliMusicServiceConfigValue>;
 
-export function createBiliConfigElement({
-  updateMusicServicesSetting,
-}: {
+export interface CreateBiliConfigElementOptions {
+  getSetting: () => Promise<SettingInfo | undefined>;
   updateMusicServicesSetting: (serviceName: string, data: any) => Promise<void>;
-}) {
+}
+
+export function createBiliConfigElement({
+  getSetting,
+  updateMusicServicesSetting,
+}: CreateBiliConfigElementOptions) {
   const ConfigElement: BiliMusicServiceApi['ConfigElement'] = ({ onChange }) => {
     const [config, setConfig] = useState<BiliBiliAuthConfig>();
     const [data, setData] = useState<BiliMusicServiceConfigValue>(
@@ -31,7 +42,7 @@ export function createBiliConfigElement({
         },
       });
       setConfig(res);
-      settingCache.get().then((res) => {
+      getSetting().then((res) => {
         if (Array.isArray(res?.musicServices)) {
           const c = res?.musicServices?.find((m) => m.name === NAME)?.config;
           setData(c as BiliMusicServiceConfigValue);

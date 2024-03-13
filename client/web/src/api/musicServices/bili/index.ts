@@ -4,9 +4,8 @@ import {
   type MusicServiceApiHooks,
 } from '@bb-music/app';
 import { html2text, proxyMusicService } from '../../../utils';
-import { createBiliConfigElement } from './ConfigElement';
+import { type CreateBiliConfigElementOptions, createBiliConfigElement } from './ConfigElement';
 import { type SearchItem, type SearchResponse } from '@bb-music/bb-types';
-import { updateMusicServicesSetting } from '../utils';
 
 class BiliMusicServiceConfigValue {
   enabled = true;
@@ -22,9 +21,13 @@ type BiliMusicServiceApi = MusicServiceApi<BiliMusicServiceConfigValue>;
 export class BiliMusicServiceInstance implements BiliMusicServiceApi {
   name = NAME;
   cname = CNAME;
-  ConfigElement = createBiliConfigElement({ updateMusicServicesSetting });
+  ConfigElement;
   action = new BiliAction();
   hooks = new BiliHooks();
+
+  constructor(props: CreateBiliConfigElementOptions) {
+    this.ConfigElement = createBiliConfigElement(props);
+  }
 }
 
 class BiliAction implements MusicServiceApiAction {

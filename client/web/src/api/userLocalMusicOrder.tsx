@@ -1,24 +1,17 @@
-import { JsonCacheStorage } from '../lib/cacheStorage';
-import {
-  type MusicInter,
-  type UserMusicOrderApiAction,
-  type UserMusicOrderApi,
-} from '@bb-music/app';
+import { type UserMusicOrderApiAction, type UserMusicOrderApi } from '@bb-music/app';
 import { nanoid } from 'nanoid';
 import dayjs from 'dayjs';
-
-type MusicOrderItem = MusicInter.MusicOrderItem;
+import { type MusicOrderItem } from '@bb-music/bb-types';
+import { JsonCacheStorage } from '../lib/cacheStorage';
 
 const NAME = 'Local';
 const CNAME = '本地歌单';
 
-export const userLocalMusicOrderCache = new JsonCacheStorage<MusicOrderItem[]>(
-  'bb-music-local-order',
-);
-
 export class UserLocalMusicOrderAction implements UserMusicOrderApiAction {
+  userLocalMusicOrderCache = new JsonCacheStorage<MusicOrderItem[]>('bb-music-local-order');
+
   getList: UserMusicOrderApiAction['getList'] = async () => {
-    const res = (await userLocalMusicOrderCache.get()) ?? [];
+    const res = (await this.userLocalMusicOrderCache.get()) ?? [];
     return res;
   };
 
@@ -28,7 +21,7 @@ export class UserLocalMusicOrderAction implements UserMusicOrderApiAction {
       await Promise.reject(new Error('歌单名称重复'));
       return;
     }
-    await userLocalMusicOrderCache.set([{ ...data, id: nanoid() }, ...res]);
+    await this.userLocalMusicOrderCache.set([{ ...data, id: nanoid() }, ...res]);
   };
 
   update: UserMusicOrderApiAction['update'] = async (data) => {
@@ -43,7 +36,7 @@ export class UserLocalMusicOrderAction implements UserMusicOrderApiAction {
 
   delete: UserMusicOrderApiAction['delete'] = async (data) => {
     const res = await this.getList();
-    await userLocalMusicOrderCache.set(res.filter((l) => l.id !== data.id));
+    await this.userLocalMusicOrderCache.set(res.filter((l) => l.id !== data.id));
   };
 
   getDetail: UserMusicOrderApiAction['getDetail'] = async (id) => {
@@ -98,7 +91,7 @@ export class UserLocalMusicOrderAction implements UserMusicOrderApiAction {
     cb: (l: MusicOrderItem) => Partial<MusicOrderItem>,
   ) => {
     const res = await this.getList();
-    await userLocalMusicOrderCache.set(
+    await this.userLocalMusicOrderCache.set(
       res.map((l) => {
         if (l.id === id) {
           return {

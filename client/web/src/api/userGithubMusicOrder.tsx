@@ -1,11 +1,18 @@
-import { Button, message, Input, SettingItem, type UserMusicOrderApi } from '@bb-music/app';
+import {
+  Button,
+  message,
+  Input,
+  SettingItem,
+  type UserMusicOrderApi,
+  type SettingInfo,
+} from '@bb-music/app';
 import {
   type GithubConfig,
   GithubUserMusicOrderAction,
   UserMusicOrderOriginType,
 } from '@bb-music/app/lib/userMusicOrder';
 import { useEffect, useState } from 'react';
-import { settingCache } from './setting';
+import { type JsonCacheStorage } from '../lib/cacheStorage';
 
 const NAME = UserMusicOrderOriginType.Github;
 const CNAME = 'Github 歌单';
@@ -19,13 +26,22 @@ type GithubMusicOrder = UserMusicOrderApi<GithubSyncValue>;
 export class UserGithubMusicOrderInstance implements GithubMusicOrder {
   name = NAME;
   cname = CNAME;
+
+  constructor(
+    private readonly settingCache: JsonCacheStorage<SettingInfo>,
+    private readonly updateUserMusicOrderOriginConfig: (
+      originName: string,
+      data: any,
+    ) => Promise<void>,
+  ) {}
+
   ConfigElement: GithubMusicOrder['ConfigElement'] = ({ onChange }) => {
     const [data, setData] = useState<GithubSyncValue>({
       repo: '',
       token: '',
     });
     const loadHandler = async () => {
-      const setting = await settingCache.get();
+      const setting = await this.settingCache.get();
       if (setting) {
         const config = setting.userMusicOrderOrigin.find((u) => u.name === NAME)?.config;
         if (config) {
@@ -47,7 +63,7 @@ export class UserGithubMusicOrderInstance implements GithubMusicOrder {
       setData(newValue);
     };
     const savaHandler = () => {
-      updateUserMusicOrderOriginConfig(NAME, data).then(() => {
+      this.updateUserMusicOrderOriginConfig(NAME, data).then(() => {
         onChange?.(data);
         message.success('已保存');
       });
@@ -76,27 +92,8 @@ export class UserGithubMusicOrderInstance implements GithubMusicOrder {
   };
 
   action = new GithubUserMusicOrderAction(async () => {
-    const setting = await settingCache.get();
+    const setting = await this.settingCache.get();
     const config = setting?.userMusicOrderOrigin.find((n) => n.name === NAME)?.config;
     return config as GithubConfig;
   });
-}
-
-async function updateUserMusicOrderOriginConfig(originName: string, data: any) {
-  const setting = await settingCache.get();
-  let list = setting?.userMusicOrderOrigin ?? [];
-  if (list.find((n) => n.name === originName)) {
-    list = list.map((l) => {
-      if (l.name === originName) {
-        l.config = data;
-      }
-      return l;
-    });
-  } else {
-    list.push({
-      name: originName,
-      config: data,
-    });
-  }
-  await settingCache.update('userMusicOrderOrigin', list);
 }
