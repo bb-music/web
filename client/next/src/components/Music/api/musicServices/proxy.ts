@@ -1,5 +1,5 @@
-import { settingCache } from '@bb-music/web/src/api/setting';
 import axios, { type AxiosRequestConfig } from 'axios';
+import { validateBiliAuthConfig } from '.';
 
 export interface Resp<T = any> {
   code: number;
@@ -19,23 +19,18 @@ interface ProxyServiceOptions {
 }
 
 export async function proxyMusicService<T = any>({ proxy }: ProxyServiceOptions) {
+  const biliAuth = await validateBiliAuthConfig();
   const res = await axios<Resp<T>>({
     ...proxy,
-  }).then((res) => res.data.data);
-  return res;
-}
-
-// 是否开启了代理
-export async function musicServiceEnabledProxy(origin: string) {
-  const config = await getMusicServiceConfig(origin);
-  return config.proxyEnabled;
-}
-
-// 获取源服务的配置信息
-export async function getMusicServiceConfig<T>(name: string) {
-  const setting = await settingCache.get();
-  const s = setting?.musicServices.find((s) => s.name === name);
-  return s?.config as ProxyConfig & T;
+    headers: {
+      ...proxy.headers,
+      bili_spi_b3: biliAuth.spi_data.b_3,
+      bili_spi_b4: biliAuth.spi_data.b_4,
+      bili_sign_img_key: biliAuth.sign_data.img_key,
+      bili_sign_sub_key: biliAuth.sign_data.sub_key,
+    },
+  });
+  return res.data.data;
 }
 
 export function mergeUrl(a: string, b: string) {

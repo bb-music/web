@@ -1,6 +1,6 @@
 'use client';
 import { BBMusicApp, MobileContainer, PcContainer } from '@bb-music/app';
-import { apiInstance } from '@bb-music/web';
+import { apiInstance } from './api';
 import { useEffect, useState } from 'react';
 // import '../../style.scss';
 // import VConsole from 'vconsole';
@@ -12,6 +12,7 @@ export default function Music() {
   const init = async () => {
     setInitLoading(true);
     try {
+      console.log('INIT SERVICE HOOK');
       await Promise.all(apiInstance.musicServices.map(async (s) => await s.hooks?.init?.()));
     } catch (error) {
       console.log('error: ', error);

@@ -3,11 +3,13 @@ import {
   type MusicServiceApiAction,
   type MusicServiceApiHooks,
 } from '@bb-music/app';
-import { html2text, proxyMusicService } from '../../../utils';
-import { createBiliConfigElement } from './ConfigElement';
-import { type SearchItem, type SearchResponse } from '@bb-music/bb-types';
-import { updateMusicServicesSetting } from '../utils';
-
+import { type BiliBiliAuthConfig, type SearchItem, type SearchResponse } from '@bb-music/bb-types';
+import { html2text } from '@bb-music/web/src/utils';
+import { proxyMusicService } from '../proxy';
+import { type CreateBiliConfigElementOptions, createBiliConfigElement } from './ConfigElement';
+import { isJson } from '@/src/utils';
+import dayjs from 'dayjs';
+import axios from 'axios';
 class BiliMusicServiceConfigValue {
   enabled = true;
   proxyEnabled = false;
@@ -22,9 +24,13 @@ type BiliMusicServiceApi = MusicServiceApi<BiliMusicServiceConfigValue>;
 export class BiliMusicServiceInstance implements BiliMusicServiceApi {
   name = NAME;
   cname = CNAME;
-  ConfigElement = createBiliConfigElement({ updateMusicServicesSetting });
+  ConfigElement;
   action = new BiliAction();
   hooks = new BiliHooks();
+
+  constructor(props: CreateBiliConfigElementOptions) {
+    this.ConfigElement = createBiliConfigElement(props);
+  }
 }
 
 class BiliAction implements MusicServiceApiAction {
@@ -79,6 +85,49 @@ class BiliAction implements MusicServiceApiAction {
 }
 class BiliHooks implements MusicServiceApiHooks {
   init: MusicServiceApiHooks['init'] = async () => {
-    // await InitConfig();
+    await validateBiliAuthConfig();
   };
+}
+
+export function setBiliAuthConfig(res: BiliBiliAuthConfig & { created_at: string }) {
+  window.localStorage.setItem('bili_auth_config', JSON.stringify(res));
+  const data = {
+    bili_spi_b3: res.spi_data.b_3,
+    bili_spi_b4: res.spi_data.b_4,
+    bili_sign_img_key: res.sign_data.img_key,
+    bili_sign_sub_key: res.sign_data.sub_key,
+  };
+  Object.entries(data).forEach(([k, v]) => {
+    setCookie(k, v);
+  });
+}
+export function getBiliAuthConfig() {
+  const info = window.localStorage.getItem('bili_auth_config');
+  if (!info) return false;
+  return isJson<BiliBiliAuthConfig & { created_at: string }>(info);
+}
+
+export async function validateBiliAuthConfig() {
+  const prev = getBiliAuthConfig();
+  if (prev && dayjs().diff(dayjs(prev.created_at), 'hour') < 1) {
+    console.log('cache');
+    return prev;
+  }
+  const res = await axios.get<{ data: BiliBiliAuthConfig }>(`/api/config/${NAME}`);
+  const result: BiliBiliAuthConfig & { created_at: string } = {
+    ...res.data.data,
+    created_at: dayjs().format(),
+  };
+  setBiliAuthConfig(result);
+  return result;
+}
+
+function setCookie(name: string, value: string, days = 100) {
+  let expires = '';
+  if (days) {
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = '; expires=' + date.toUTCString();
+  }
+  document.cookie = name + '=' + (value || '') + expires + '; path=/';
 }

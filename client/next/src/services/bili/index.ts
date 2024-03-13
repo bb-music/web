@@ -11,8 +11,9 @@ import axios from 'axios';
 
 export class BiliService implements OriginService {
   client: BiliClient;
-  constructor() {
+  constructor(headers: Record<string, string>) {
     this.client = new BiliClient();
+    this.setConfig(headers);
   }
 
   getConfig = async () => {
@@ -28,12 +29,17 @@ export class BiliService implements OriginService {
   };
 
   private readonly setConfig = async (headers: Record<string, string>) => {
-    // this.client.setSignData(signData);
-    // this.client.setSpiData(spiData);
+    this.client.setSignData({
+      img_key: headers.bili_sign_img_key,
+      sub_key: headers.bili_sign_sub_key,
+    });
+    this.client.setSpiData({
+      b_3: headers.bili_spi_b3,
+      b_4: headers.bili_spi_b4,
+    });
   };
 
-  search: OriginService['search'] = async (params, headers) => {
-    this.setConfig(headers);
+  search: OriginService['search'] = async (params) => {
     const res = await this.client.search(params);
     const result: BBTypes.SearchResponse = {
       current: res.page,
@@ -59,8 +65,7 @@ export class BiliService implements OriginService {
     return result;
   };
 
-  searchDetail: OriginService['searchDetail'] = async (id: string, headers) => {
-    this.setConfig(headers);
+  searchDetail: OriginService['searchDetail'] = async (id: string) => {
     const biliid = unicodeBiliId(id);
     const res = await this.client.getVideoDetail(biliid.aid, biliid.bvid);
 
@@ -91,8 +96,7 @@ export class BiliService implements OriginService {
     return result;
   };
 
-  getMusicFile: OriginService['getMusicFile'] = async (id: string, headers) => {
-    this.setConfig(headers);
+  getMusicFile: OriginService['getMusicFile'] = async (id: string) => {
     const biliid = unicodeBiliId(id);
     const detail = await this.client.getVideoUrl(biliid.aid, biliid.bvid, biliid.cid);
 
